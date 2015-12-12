@@ -3,23 +3,57 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.mapIndexed = exports.map = exports.foldl = exports.foldr = exports.range = exports.repeat = exports.node = exports.nil = exports.second = exports.first = exports.pair = exports.sub = exports.pred = exports.succ = exports.add = exports.isZero = exports.three = exports.two = exports.one = exports.zero = exports.If = exports.xor = exports.not = exports.or = exports.and = exports.False = exports.True = undefined;
+exports.mapIndexed = exports.map = exports.foldl = exports.foldr = exports.range = exports.repeat = exports.node = exports.nil = exports.second = exports.first = exports.pair = exports.sub = exports.pred = exports.succ = exports.add = exports.isZero = exports.three = exports.two = exports.one = exports.zero = exports.xor = exports.not = exports.or = exports.and = exports.If = exports.False = exports.True = undefined;
 
 var _combinatorsJs = require('combinators-js');
 
+// `True` takes 2 arguments and returns the first
+// ```javascript
+// True('first')('second') // => 'first'`
+// ```
 var True = _combinatorsJs.K;
+// `False` takes 2 arguments and returns the second
+// ```javascript
+// False('first')('second') // => 'second'
+// ```
 var False = (0, _combinatorsJs.K)(_combinatorsJs.I);
+// `If` take a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False
+// ```javascript
+// If(True)('then')('else') // => 'then'
+// If(False)('then')('else') // => 'else'
+// ```
+var If = _combinatorsJs.I__;
+// Standard 'and'
+// ```javascript
+// and(True)(True) // => True
+// and(True)(False) // => False
+// ```
 var and = function and(a) {
 	return function (b) {
 		return a(b)(a);
 	};
 };
+// Standard 'or'
+// ```javascript
+// or(True)(False) // => True
+// or(False)(False) // => False
+// ```
 var or = function or(a) {
 	return function (b) {
 		return a(a)(b);
 	};
 };
+// Standard 'not'
+// ```javascript
+// not(False) // => True
+// not(True) // => False
+// ```
 var not = _combinatorsJs.C;
+// Standard 'xor'
+// ```javascript
+// xor(True)(False) // => True
+// xor(True)(True) // => False
+// ```
 var xor = function xor(a) {
 	return function (b) {
 		return function (c) {
@@ -29,13 +63,8 @@ var xor = function xor(a) {
 		};
 	};
 };
-var If = function If(a) {
-	return function (b) {
-		return function (c) {
-			return a(b)(c);
-		};
-	};
-};
+
+// Documentation to be written
 
 var zero = function zero(f) {
 	return function (x) {
@@ -99,6 +128,8 @@ var sub = function sub(m) {
 	};
 };
 
+// Documentation to be written
+
 var pair = _combinatorsJs.V;
 var first = function first(a) {
 	return a(_combinatorsJs.K);
@@ -106,6 +137,12 @@ var first = function first(a) {
 var second = function second(a) {
 	return a((0, _combinatorsJs.K)(_combinatorsJs.I));
 };
+
+//
+// *** NB Work is still in progress on lists, I'm not happy with the implementations right now***
+//
+
+// Documentation to be written
 
 var nil = function nil(a) {
 	return function (b) {
@@ -190,11 +227,11 @@ var mapIndexed = function mapIndexed(f) {
 
 exports.True = True;
 exports.False = False;
+exports.If = If;
 exports.and = and;
 exports.or = or;
 exports.not = not;
 exports.xor = xor;
-exports.If = If;
 exports.zero = zero;
 exports.one = one;
 exports.two = two;
