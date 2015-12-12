@@ -12,7 +12,7 @@ Church encoding is a way of encoding data using only functions. For instance, we
 
 ### How?
 
-Check out the [docs](http://benji6.github.io/church/docs/)!
+Check out the [docs](http://benji6.github.io/church/docs/). They are currently being developed and are very incomplete right now though!
 
 ### Install
 
