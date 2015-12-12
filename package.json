@@ -6,7 +6,9 @@
   "jsnext:main": "src/index.js",
   "scripts": {
     "build": "rm -rf dist && mkdir dist && rollup src/index.js | babel --presets es2015 -o dist/index.js",
+    "docs": "docco src/*.js",
     "test": "babel-node node_modules/.bin/tape 'test/**/*'",
+    "watch-docs": "nodemon --exec npm run docs",
     "watch-test": "nodemon --exec npm test"
   },
   "repository": {
@@ -28,6 +30,7 @@
     "babel-cli": "^6.2.0",
     "babel-eslint": "^5.0.0-beta6",
     "babel-preset-es2015": "^6.3.13",
+    "docco": "^0.7.0",
     "eslint": "^1.10.3",
     "nodemon": "^1.8.1",
     "rollup": "^0.21.2",
