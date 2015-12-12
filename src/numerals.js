@@ -1,6 +1,8 @@
 import {I} from 'combinators-js'
 import {True, False} from './booleans'
 
+// Documentation to be written
+
 export const zero = f => x => x
 export const one = f => x => f(x)
 export const two = f => x => f(f(x))

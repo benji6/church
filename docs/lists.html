@@ -69,12 +69,7 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {I, K, V, Y} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span>
-<span class="hljs-keyword">import</span> {sub, pred, succ, zero} <span class="hljs-keyword">from</span> <span class="hljs-string">'./numerals'</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> nil = a =&gt; b =&gt; a()
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> node = a =&gt; b =&gt; c =&gt; d =&gt; d(V(a)(b))
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> repeat = a =&gt; b =&gt; b(c =&gt; node(a)(c))(nil)</pre></div></div>
+<span class="hljs-keyword">import</span> {sub, pred, succ, zero} <span class="hljs-keyword">from</span> <span class="hljs-string">'./numerals'</span></pre></div></div>
             
         </li>
         
@@ -84,6 +79,38 @@
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p><strong><em> NB Work is still in progress on lists, I’m not happy with the implementations right now</em></strong></p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Documentation to be written</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> nil = a =&gt; b =&gt; a()
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> node = a =&gt; b =&gt; c =&gt; d =&gt; d(V(a)(b))
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> repeat = a =&gt; b =&gt; b(c =&gt; node(a)(c))(nil)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>HACK: cheating with assignment</p>
 
@@ -101,11 +128,11 @@
         </li>
         
         
-        <li id="section-3">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <p>HACK: cheating with assignment</p>
 

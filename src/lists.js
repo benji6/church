@@ -1,6 +1,12 @@
 import {I, K, V, Y} from 'combinators-js'
 import {sub, pred, succ, zero} from './numerals'
 
+//
+// *** NB Work is still in progress on lists, I'm not happy with the implementations right now***
+//
+
+// Documentation to be written
+
 export const nil = a => b => a()
 export const node = a => b => c => d => d(V(a)(b))
 

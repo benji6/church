@@ -70,7 +70,7 @@ A <a href="https://en.wikipedia.org/wiki/Combinatory_logic">combinator</a> is ju
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {C, K, I} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {C, K, I, I__} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span></pre></div></div>
             
         </li>
         
@@ -81,7 +81,9 @@ A <a href="https://en.wikipedia.org/wiki/Combinatory_logic">combinator</a> is ju
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>True takes 2 arguments and returns the first</p>
+              <p><code>True</code> takes 2 arguments and returns the first</p>
+<pre><code class="lang-javascript">True(<span class="hljs-string">'first'</span>)(<span class="hljs-string">'second'</span>) <span class="hljs-comment">// =&gt; 'first'`</span>
+</code></pre>
 
             </div>
             
@@ -96,7 +98,9 @@ A <a href="https://en.wikipedia.org/wiki/Combinatory_logic">combinator</a> is ju
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>False takes 2 arguments and returns the second</p>
+              <p><code>False</code> takes 2 arguments and returns the second</p>
+<pre><code class="lang-javascript">False(<span class="hljs-string">'first'</span>)(<span class="hljs-string">'second'</span>) <span class="hljs-comment">// =&gt; 'second'</span>
+</code></pre>
 
             </div>
             
@@ -111,16 +115,86 @@ A <a href="https://en.wikipedia.org/wiki/Combinatory_logic">combinator</a> is ju
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>If take a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False</p>
+              <p><code>If</code> take a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False</p>
+<pre><code class="lang-javascript">If(True)(<span class="hljs-string">'then'</span>)(<span class="hljs-string">'else'</span>) <span class="hljs-comment">// =&gt; 'then'</span>
+If(False)(<span class="hljs-string">'then'</span>)(<span class="hljs-string">'else'</span>) <span class="hljs-comment">// =&gt; 'else'</span>
+</code></pre>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> If = a =&gt; b =&gt; c =&gt; a(b)(c)
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> If = I__</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Standard ‘and’</p>
+<pre><code class="lang-javascript">and(True)(True) <span class="hljs-comment">// =&gt; True</span>
+and(True)(False) <span class="hljs-comment">// =&gt; False</span>
+</code></pre>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> and = a =&gt; b =&gt; a(b)(a)
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> or = a =&gt; b =&gt; a(a)(b)
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> not = C
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> xor = a =&gt; b =&gt; c =&gt; d =&gt; a(b(d)(c))(b(c)(d))</pre></div></div>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> and = a =&gt; b =&gt; a(b)(a)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Standard ‘or’</p>
+<pre><code class="lang-javascript">or(True)(False) <span class="hljs-comment">// =&gt; True</span>
+or(False)(False) <span class="hljs-comment">// =&gt; False</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> or = a =&gt; b =&gt; a(a)(b)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Standard ‘not’</p>
+<pre><code class="lang-javascript">not(False) <span class="hljs-comment">// =&gt; True</span>
+not(True) <span class="hljs-comment">// =&gt; False</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> not = C</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Standard ‘xor’</p>
+<pre><code class="lang-javascript">xor(True)(False) <span class="hljs-comment">// =&gt; True</span>
+xor(True)(True) <span class="hljs-comment">// =&gt; False</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> xor = a =&gt; b =&gt; c =&gt; d =&gt; a(b(d)(c))(b(c)(d))</pre></div></div>
             
         </li>
         
