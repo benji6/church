@@ -11,11 +11,11 @@ I built this library mostly as a learning exercise, but the code is also availab
 
 ### What?
 
-Church encoding is a way of encoding data using only functions. For instance, we can use functions to represent, booleans, numerals and lists. Higher-order functions are all you need for Turing completeness!
+Church encoding is a way of encoding data using only functions. For instance, we can use functions to represent, booleans, numerals and lists. Higher-order functions are all you need for Turing completeness.
 
 ### How?
 
-Check out the [docs](http://benji6.github.io/church/docs/). They are currently being developed and are very incomplete right now though.
+Check out the [docs](http://benji6.github.io/church/docs/).
 
 ### Install
 
