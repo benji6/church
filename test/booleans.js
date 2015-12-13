@@ -1,4 +1,5 @@
 import test from 'tape'
+import {decodeBoolean} from './_tools'
 import {
 	True,
 	False,
@@ -8,8 +9,6 @@ import {
 	If,
 	not,
 } from '../src'
-
-const decodeBoolean = a => a(true)(false)
 
 test('Booleans - true and false values', t => {
 	t.equal(decodeBoolean(True), true)

@@ -4,5 +4,6 @@
 // Have a look at booleans first.
 export * from './booleans';
 export * from './numerals';
+export * from './predicates';
 export * from './pairs';
 export * from './lists';

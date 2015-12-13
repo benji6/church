@@ -1,4 +1,5 @@
 import test from 'tape'
+import {decodeNumber} from './_tools'
 import {
 	foldl,
 	foldr,
@@ -18,8 +19,6 @@ const addNormal = a => b => a + b
 const l123 = node(1)(node(2)(node(3)(nil)))
 const append = x => xs => [...xs, x]
 const listToString = foldl(a => b => `${a} ${b}`)([])
-
-const decodeNumber = a => a(b => b + 1)(0)
 
 test('Lists - repeat', t => {
 	t.equal(listToString(repeat('a')(three)), ' a a a')

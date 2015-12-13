@@ -1,6 +1,6 @@
 import test from 'tape'
+import {decodeNumber} from './_tools'
 import {
-	isZero,
 	zero,
 	one,
 	two,
@@ -20,9 +20,6 @@ import {
 	exp,
 } from '../src'
 
-const decodeNumber = a => a(b => b + 1)(0)
-const decodeBoolean = a => a(true)(false)
-
 test('Numerals - values', t => {
 	t.equal(decodeNumber(zero), 0)
 	t.equal(decodeNumber(one), 1)
@@ -35,14 +32,6 @@ test('Numerals - values', t => {
 	t.equal(decodeNumber(eight), 8)
 	t.equal(decodeNumber(nine), 9)
 	t.equal(decodeNumber(ten), 10)
-	t.end()
-})
-
-test('Numerals - isZero', t => {
-	t.equal(decodeBoolean(isZero(zero)), true)
-	t.equal(decodeBoolean(isZero(one)), false)
-	t.equal(decodeBoolean(isZero(two)), false)
-	t.equal(decodeBoolean(isZero(three)), false)
 	t.end()
 })
 
