@@ -80,7 +80,13 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>Documentation to be written</p>
+              <p>This is how numerals are encoded. They take a function and a value then apply that function to the value or the previous result of application n times where n is the number being encoded. In JavaScript we can decode numerals simply like this:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> decodeNumber = a =&gt; a(b =&gt; b + <span class="hljs-number">1</span>)(<span class="hljs-number">0</span>)
+decodeNumber(zero) <span class="hljs-comment">// =&gt; 0</span>
+decodeNumber(one) <span class="hljs-comment">// =&gt; 1</span>
+decodeNumber(two) <span class="hljs-comment">// =&gt; 2</span>
+decodeNumber(three) <span class="hljs-comment">// =&gt; 3</span>
+</code></pre>
 
             </div>
             
@@ -89,13 +95,105 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> one = f =&gt; x =&gt; f(x)
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> two = f =&gt; x =&gt; f(f(x))
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> three = f =&gt; x =&gt; f(f(f(x)))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> four = f =&gt; x =&gt; f(f(f(f(x))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> five = f =&gt; x =&gt; f(f(f(f(f(x)))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> six = f =&gt; x =&gt; f(f(f(f(f(f(x))))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> seven = f =&gt; x =&gt; f(f(f(f(f(f(f(x)))))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> eight = f =&gt; x =&gt; f(f(f(f(f(f(f(f(x))))))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> nine = f =&gt; x =&gt; f(f(f(f(f(f(f(f(f(x)))))))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> ten = f =&gt; x =&gt; f(f(f(f(f(f(f(f(f(f(x))))))))))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p><code>isZero</code> takes a value and returns Church encoded <code>True</code> if it is a Church encoded <code>zero</code> and <code>False</code> otherwise</p>
+<pre><code class="lang-javascript">isZero(zero) <span class="hljs-comment">// =&gt; True</span>
+isZero(one) <span class="hljs-comment">// =&gt; False</span>
+</code></pre>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> isZero = a =&gt; a(_ =&gt; False)(True)
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> isZero = a =&gt; a(_ =&gt; False)(True)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p><code>add</code> takes two numerals and returns their sum</p>
+<pre><code class="lang-javascript">add(four)(three) <span class="hljs-comment">// =&gt; seven</span>
+</code></pre>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> add = m =&gt; n =&gt; f =&gt; x =&gt; n(f)(m(f)(x))
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> succ = n =&gt; f =&gt; x =&gt; n(f)(f(x))
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> pred = n =&gt; f =&gt; x =&gt; n(g =&gt; h =&gt; h(g(f)))(_ =&gt; x)(I)
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> sub = m =&gt; n =&gt; n(pred)(m)</pre></div></div>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> succ = n =&gt; f =&gt; x =&gt; n(f)(f(x))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p><code>pred</code> takes a numeral and returns its predecessor. There is a catch here, if the number supplied is zero then zero will be returned</p>
+<pre><code class="lang-javascript">pred(five) <span class="hljs-comment">// =&gt; four</span>
+pred(four) <span class="hljs-comment">// =&gt; three</span>
+pred(zero) <span class="hljs-comment">// =&gt; zero</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> add = m =&gt; n =&gt; f =&gt; x =&gt; n(f)(m(f)(x))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p><code>succ</code> takes a numeral and returns its successor</p>
+<pre><code class="lang-javascript">succ(three) <span class="hljs-comment">// =&gt; four</span>
+succ(four) <span class="hljs-comment">// =&gt; five</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> pred = n =&gt; f =&gt; x =&gt; n(g =&gt; h =&gt; h(g(f)))(_ =&gt; x)(I)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p><code>sub</code> takes two numerals and returns their difference. Again there is catch in that if the difference is negative then zero will be returned</p>
+<pre><code class="lang-javascript">sub(three)(one) <span class="hljs-comment">// =&gt; two</span>
+sub(three)(two) <span class="hljs-comment">// =&gt; one</span>
+sub(three)(three) <span class="hljs-comment">// =&gt; zero</span>
+sub(three)(four) <span class="hljs-comment">// =&gt; zero</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> sub = m =&gt; n =&gt; n(pred)(m)</pre></div></div>
             
         </li>
         

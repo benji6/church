@@ -5,6 +5,13 @@ import {
 	one,
 	two,
 	three,
+	four,
+	five,
+	six,
+	seven,
+	eight,
+	nine,
+	ten,
 	succ,
 	pred,
 	add,
@@ -19,6 +26,13 @@ test('Numerals - values', t => {
 	t.equal(decodeNumber(one), 1)
 	t.equal(decodeNumber(two), 2)
 	t.equal(decodeNumber(three), 3)
+	t.equal(decodeNumber(four), 4)
+	t.equal(decodeNumber(five), 5)
+	t.equal(decodeNumber(six), 6)
+	t.equal(decodeNumber(seven), 7)
+	t.equal(decodeNumber(eight), 8)
+	t.equal(decodeNumber(nine), 9)
+	t.equal(decodeNumber(ten), 10)
 	t.end()
 })
 
@@ -61,5 +75,6 @@ test('Numerals - sub', t => {
 	t.equal(decodeNumber(sub(three)(one)), 2)
 	t.equal(decodeNumber(sub(three)(two)), 1)
 	t.equal(decodeNumber(sub(three)(three)), 0)
+	t.equal(decodeNumber(sub(one)(three)), 0)
 	t.end()
 })
