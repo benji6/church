@@ -3,6 +3,9 @@ import{decodeBoolean} from './_tools'
 import {
 	isZero,
   lte,
+  gte,
+  lt,
+  gt,
   eq,
   zero,
   one,
@@ -20,9 +23,34 @@ test('Predicates - isZero', t => {
 })
 
 test('Predicates - lte', t => {
-	t.equal(decodeBoolean(lte(one)(three)), true)
+	t.equal(decodeBoolean(lte(two)(three)), true)
 	t.equal(decodeBoolean(lte(three)(three)), true)
+	t.equal(decodeBoolean(lte(zero)(zero)), true)
 	t.equal(decodeBoolean(lte(four)(three)), false)
+	t.end()
+})
+
+test('Predicates - gte', t => {
+	t.equal(decodeBoolean(gte(two)(three)), false)
+	t.equal(decodeBoolean(gte(three)(three)), true)
+	t.equal(decodeBoolean(gte(zero)(zero)), true)
+	t.equal(decodeBoolean(gte(four)(three)), true)
+	t.end()
+})
+
+test('Predicates - lt', t => {
+	t.equal(decodeBoolean(lt(two)(three)), true)
+	t.equal(decodeBoolean(lt(three)(three)), false)
+	t.equal(decodeBoolean(lt(zero)(zero)), false)
+	t.equal(decodeBoolean(lt(four)(three)), false)
+	t.end()
+})
+
+test('Predicates - gt', t => {
+	t.equal(decodeBoolean(gt(two)(three)), false)
+	t.equal(decodeBoolean(gt(three)(three)), false)
+	t.equal(decodeBoolean(gt(zero)(zero)), false)
+	t.equal(decodeBoolean(gt(four)(three)), true)
 	t.end()
 })
 
