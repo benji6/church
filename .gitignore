@@ -1,3 +1,4 @@
 *.log
 dist
+docs
 node_modules
