@@ -1,6 +1,6 @@
 {
   "name": "church",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Church encoding utility library for JavaScript",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
