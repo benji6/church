@@ -130,8 +130,9 @@ isZero(one) <span class="hljs-comment">// =&gt; False</span>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p><code>add</code> takes two numerals and returns their sum</p>
-<pre><code class="lang-javascript">add(four)(three) <span class="hljs-comment">// =&gt; seven</span>
+              <p><code>succ</code> takes a numeral and returns its successor</p>
+<pre><code class="lang-javascript">succ(three) <span class="hljs-comment">// =&gt; four</span>
+succ(four) <span class="hljs-comment">// =&gt; five</span>
 </code></pre>
 
             </div>
@@ -155,7 +156,7 @@ pred(zero) <span class="hljs-comment">// =&gt; zero</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> add = m =&gt; n =&gt; f =&gt; x =&gt; n(f)(m(f)(x))</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> pred = n =&gt; f =&gt; x =&gt; n(g =&gt; h =&gt; h(g(f)))(_ =&gt; x)(I)</pre></div></div>
             
         </li>
         
@@ -166,14 +167,13 @@ pred(zero) <span class="hljs-comment">// =&gt; zero</span>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p><code>succ</code> takes a numeral and returns its successor</p>
-<pre><code class="lang-javascript">succ(three) <span class="hljs-comment">// =&gt; four</span>
-succ(four) <span class="hljs-comment">// =&gt; five</span>
+              <p><code>add</code> takes two numerals and returns their sum</p>
+<pre><code class="lang-javascript">add(four)(three) <span class="hljs-comment">// =&gt; seven</span>
 </code></pre>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> pred = n =&gt; f =&gt; x =&gt; n(g =&gt; h =&gt; h(g(f)))(_ =&gt; x)(I)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> add = m =&gt; n =&gt; f =&gt; x =&gt; n(f)(m(f)(x))</pre></div></div>
             
         </li>
         
@@ -194,6 +194,42 @@ sub(three)(four) <span class="hljs-comment">// =&gt; zero</span>
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> sub = m =&gt; n =&gt; n(pred)(m)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p><code>mult</code> takes two numerals and returns their product</p>
+<pre><code class="lang-javascript">mult(two)(five) <span class="hljs-comment">// =&gt; ten</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> mult = m =&gt; n =&gt; f =&gt; m(n(f))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p><code>exp</code> takes two numerals and returns the first to the power of the second</p>
+<pre><code class="lang-javascript">exp(ten)(zero) <span class="hljs-comment">// =&gt; one</span>
+exp(two)(two) <span class="hljs-comment">// =&gt; four</span>
+exp(three)(two) <span class="hljs-comment">// =&gt; nine</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> exp = m =&gt; n =&gt; n(m)</pre></div></div>
             
         </li>
         
