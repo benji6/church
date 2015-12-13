@@ -12,7 +12,7 @@ export const True = K
 // False('first')('second') // => 'second'
 // ```
 export const False = K(I)
-// `If` take a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False
+// `If` takes a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False
 // ```javascript
 // If(True)('then')('else') // => 'then'
 // If(False)('then')('else') // => 'else'
