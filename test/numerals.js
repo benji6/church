@@ -16,6 +16,8 @@ import {
 	pred,
 	add,
 	sub,
+	mult,
+	exp,
 } from '../src'
 
 const decodeNumber = a => a(b => b + 1)(0)
@@ -76,5 +78,24 @@ test('Numerals - sub', t => {
 	t.equal(decodeNumber(sub(three)(two)), 1)
 	t.equal(decodeNumber(sub(three)(three)), 0)
 	t.equal(decodeNumber(sub(one)(three)), 0)
+	t.end()
+})
+
+test('Numerals - mult', t => {
+	t.equal(decodeNumber(mult(zero)(zero)), 0)
+	t.equal(decodeNumber(mult(zero)(ten)), 0)
+	t.equal(decodeNumber(mult(one)(one)), 1)
+	t.equal(decodeNumber(mult(one)(two)), 2)
+	t.equal(decodeNumber(mult(two)(five)), 10)
+	t.equal(decodeNumber(mult(three)(four)), 12)
+	t.end()
+})
+
+test('Numerals - exp', t => {
+	t.equal(decodeNumber(exp(zero)(zero)), 1)
+	t.equal(decodeNumber(exp(ten)(zero)), 1)
+	t.equal(decodeNumber(exp(ten)(one)), 10)
+	t.equal(decodeNumber(exp(three)(two)), 9)
+	t.equal(decodeNumber(exp(three)(three)), 27)
 	t.end()
 })

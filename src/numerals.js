@@ -27,9 +27,10 @@ export const ten = f => x => f(f(f(f(f(f(f(f(f(f(x))))))))))
 // isZero(one) // => False
 // ```
 export const isZero = a => a(_ => False)(True)
-// `add` takes two numerals and returns their sum
+// `succ` takes a numeral and returns its successor
 // ```javascript
-// add(four)(three) // => seven
+// succ(three) // => four
+// succ(four) // => five
 // ```
 export const succ = n => f => x => n(f)(f(x))
 // `pred` takes a numeral and returns its predecessor. There is a catch here, if the number supplied is zero then zero will be returned
@@ -38,13 +39,12 @@ export const succ = n => f => x => n(f)(f(x))
 // pred(four) // => three
 // pred(zero) // => zero
 // ```
-export const add = m => n => f => x => n(f)(m(f)(x))
-// `succ` takes a numeral and returns its successor
-// ```javascript
-// succ(three) // => four
-// succ(four) // => five
-// ```
 export const pred = n => f => x => n(g => h => h(g(f)))(_ => x)(I)
+// `add` takes two numerals and returns their sum
+// ```javascript
+// add(four)(three) // => seven
+// ```
+export const add = m => n => f => x => n(f)(m(f)(x))
 // `sub` takes two numerals and returns their difference. Again there is catch in that if the difference is negative then zero will be returned
 // ```javascript
 // sub(three)(one) // => two
@@ -53,3 +53,15 @@ export const pred = n => f => x => n(g => h => h(g(f)))(_ => x)(I)
 // sub(three)(four) // => zero
 // ```
 export const sub = m => n => n(pred)(m)
+// `mult` takes two numerals and returns their product
+// ```javascript
+// mult(two)(five) // => ten
+// ```
+export const mult = m => n => f => m(n(f))
+// `exp` takes two numerals and returns the first to the power of the second
+// ```javascript
+// exp(ten)(zero) // => one
+// exp(two)(two) // => four
+// exp(three)(two) // => nine
+// ```
+export const exp = m => n => n(m)
