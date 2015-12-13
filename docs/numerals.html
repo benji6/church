@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>numerals.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="booleans.html">
+                  booleans.js
+                </a>
+              
+                
+                <a class="source" href="index.html">
+                  index.js
+                </a>
+              
+                
+                <a class="source" href="lists.html">
+                  lists.js
+                </a>
+              
+                
+                <a class="source" href="numerals.html">
+                  numerals.js
+                </a>
+              
+                
+                <a class="source" href="pairs.html">
+                  pairs.js
+                </a>
+              
+                
+                <a class="source" href="predicates.html">
+                  predicates.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>numerals.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {I} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>This is how numerals are encoded. They take a function and a value then apply that function to the value or the previous result of application n times where n is the number being encoded. In JavaScript we can decode numerals simply like this:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> decodeNumber = a =&gt; a(b =&gt; b + <span class="hljs-number">1</span>)(<span class="hljs-number">0</span>)
+decodeNumber(zero) <span class="hljs-comment">// =&gt; 0</span>
+decodeNumber(one) <span class="hljs-comment">// =&gt; 1</span>
+decodeNumber(two) <span class="hljs-comment">// =&gt; 2</span>
+decodeNumber(three) <span class="hljs-comment">// =&gt; 3</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> zero = f =&gt; x =&gt; x
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> one = f =&gt; x =&gt; f(x)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> two = f =&gt; x =&gt; f(f(x))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> three = f =&gt; x =&gt; f(f(f(x)))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> four = f =&gt; x =&gt; f(f(f(f(x))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> five = f =&gt; x =&gt; f(f(f(f(f(x)))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> six = f =&gt; x =&gt; f(f(f(f(f(f(x))))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> seven = f =&gt; x =&gt; f(f(f(f(f(f(f(x)))))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> eight = f =&gt; x =&gt; f(f(f(f(f(f(f(f(x))))))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> nine = f =&gt; x =&gt; f(f(f(f(f(f(f(f(f(x)))))))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> ten = f =&gt; x =&gt; f(f(f(f(f(f(f(f(f(f(x))))))))))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p><code>succ</code> takes a numeral and returns its successor</p>
+<pre><code class="lang-javascript">succ(three) <span class="hljs-comment">// =&gt; four</span>
+succ(four) <span class="hljs-comment">// =&gt; five</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> succ = n =&gt; f =&gt; x =&gt; n(f)(f(x))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p><code>pred</code> takes a numeral and returns its predecessor. There is a catch here, if the number supplied is zero then zero will be returned</p>
+<pre><code class="lang-javascript">pred(five) <span class="hljs-comment">// =&gt; four</span>
+pred(four) <span class="hljs-comment">// =&gt; three</span>
+pred(zero) <span class="hljs-comment">// =&gt; zero</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> pred = n =&gt; f =&gt; x =&gt; n(g =&gt; h =&gt; h(g(f)))(_ =&gt; x)(I)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p><code>add</code> takes two numerals and returns their sum</p>
+<pre><code class="lang-javascript">add(four)(three) <span class="hljs-comment">// =&gt; seven</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> add = m =&gt; n =&gt; f =&gt; x =&gt; n(f)(m(f)(x))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p><code>sub</code> takes two numerals and returns their difference. Again there is catch in that if the difference is negative then zero will be returned</p>
+<pre><code class="lang-javascript">sub(three)(one) <span class="hljs-comment">// =&gt; two</span>
+sub(three)(two) <span class="hljs-comment">// =&gt; one</span>
+sub(three)(three) <span class="hljs-comment">// =&gt; zero</span>
+sub(three)(four) <span class="hljs-comment">// =&gt; zero</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> sub = m =&gt; n =&gt; n(pred)(m)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p><code>mult</code> takes two numerals and returns their product</p>
+<pre><code class="lang-javascript">mult(two)(five) <span class="hljs-comment">// =&gt; ten</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> mult = m =&gt; n =&gt; f =&gt; m(n(f))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p><code>exp</code> takes two numerals and returns the first to the power of the second</p>
+<pre><code class="lang-javascript">exp(ten)(zero) <span class="hljs-comment">// =&gt; one</span>
+exp(two)(two) <span class="hljs-comment">// =&gt; four</span>
+exp(three)(two) <span class="hljs-comment">// =&gt; nine</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> exp = m =&gt; n =&gt; n(m)</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
