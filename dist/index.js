@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.mapIndexed = exports.map = exports.foldl = exports.foldr = exports.range = exports.repeat = exports.node = exports.nil = exports.second = exports.first = exports.pair = exports.sub = exports.pred = exports.succ = exports.add = exports.isZero = exports.three = exports.two = exports.one = exports.zero = exports.xor = exports.not = exports.or = exports.and = exports.If = exports.False = exports.True = undefined;
+exports.mapIndexed = exports.map = exports.foldl = exports.foldr = exports.range = exports.repeat = exports.node = exports.nil = exports.second = exports.first = exports.pair = exports.sub = exports.pred = exports.add = exports.succ = exports.isZero = exports.ten = exports.nine = exports.eight = exports.seven = exports.six = exports.five = exports.four = exports.three = exports.two = exports.one = exports.zero = exports.xor = exports.not = exports.or = exports.and = exports.If = exports.False = exports.True = undefined;
 
 var _combinatorsJs = require('combinators-js');
 
@@ -17,7 +17,7 @@ var True = _combinatorsJs.K;
 // False('first')('second') // => 'second'
 // ```
 var False = (0, _combinatorsJs.K)(_combinatorsJs.I);
-// `If` take a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False
+// `If` takes a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False
 // ```javascript
 // If(True)('then')('else') // => 'then'
 // If(False)('then')('else') // => 'else'
@@ -64,7 +64,14 @@ var xor = function xor(a) {
 	};
 };
 
-// Documentation to be written
+// This is how numerals are encoded. They take a function and a value then apply that function to the value or the previous result of application n times where n is the number being encoded. In JavaScript we can decode numerals simply like this:
+// ```javascript
+// const decodeNumber = a => a(b => b + 1)(0)
+// decodeNumber(zero) // => 0
+// decodeNumber(one) // => 1
+// decodeNumber(two) // => 2
+// decodeNumber(three) // => 3
+// ```
 
 var zero = function zero(f) {
 	return function (x) {
@@ -86,13 +93,68 @@ var three = function three(f) {
 		return f(f(f(x)));
 	};
 };
-
+var four = function four(f) {
+	return function (x) {
+		return f(f(f(f(x))));
+	};
+};
+var five = function five(f) {
+	return function (x) {
+		return f(f(f(f(f(x)))));
+	};
+};
+var six = function six(f) {
+	return function (x) {
+		return f(f(f(f(f(f(x))))));
+	};
+};
+var seven = function seven(f) {
+	return function (x) {
+		return f(f(f(f(f(f(f(x)))))));
+	};
+};
+var eight = function eight(f) {
+	return function (x) {
+		return f(f(f(f(f(f(f(f(x))))))));
+	};
+};
+var nine = function nine(f) {
+	return function (x) {
+		return f(f(f(f(f(f(f(f(f(x)))))))));
+	};
+};
+var ten = function ten(f) {
+	return function (x) {
+		return f(f(f(f(f(f(f(f(f(f(x))))))))));
+	};
+};
+// `isZero` takes a value and returns Church encoded `True` if it is a Church encoded `zero` and `False` otherwise
+// ```javascript
+// isZero(zero) // => True
+// isZero(one) // => False
+// ```
 var isZero = function isZero(a) {
 	return a(function (_) {
 		return False;
 	})(True);
 };
-
+// `add` takes two numerals and returns their sum
+// ```javascript
+// add(four)(three) // => seven
+// ```
+var succ = function succ(n) {
+	return function (f) {
+		return function (x) {
+			return n(f)(f(x));
+		};
+	};
+};
+// `pred` takes a numeral and returns its predecessor. There is a catch here, if the number supplied is zero then zero will be returned
+// ```javascript
+// pred(five) // => four
+// pred(four) // => three
+// pred(zero) // => zero
+// ```
 var add = function add(m) {
 	return function (n) {
 		return function (f) {
@@ -102,13 +164,11 @@ var add = function add(m) {
 		};
 	};
 };
-var succ = function succ(n) {
-	return function (f) {
-		return function (x) {
-			return n(f)(f(x));
-		};
-	};
-};
+// `succ` takes a numeral and returns its successor
+// ```javascript
+// succ(three) // => four
+// succ(four) // => five
+// ```
 var pred = function pred(n) {
 	return function (f) {
 		return function (x) {
@@ -122,21 +182,37 @@ var pred = function pred(n) {
 		};
 	};
 };
+// `sub` takes two numerals and returns their difference. Again there is catch in that if the difference is negative then zero will be returned
+// ```javascript
+// sub(three)(one) // => two
+// sub(three)(two) // => one
+// sub(three)(three) // => zero
+// sub(three)(four) // => zero
+// ```
 var sub = function sub(m) {
 	return function (n) {
 		return n(pred)(m);
 	};
 };
 
-// Documentation to be written
-
+// `pair` takes two values which are effectively stored as a two-tuple that can then be accessed by `first` and `second` detailed below
+// ```javascript
+// pair('first value')('second value')
+// // => pair('first value')('second value')
+// ```
 var pair = _combinatorsJs.V;
-var first = function first(a) {
-	return a(_combinatorsJs.K);
-};
-var second = function second(a) {
-	return a((0, _combinatorsJs.K)(_combinatorsJs.I));
-};
+// when a pair is applied with `first` the first value in the pair is returned
+// ```javascript
+// pair('first value')('second value')(first)
+// // => 'first value'
+// ```
+var first = (0, _combinatorsJs.T)(_combinatorsJs.K);
+// when a pair is applied with `second` the first value in the pair is returned
+// ```javascript
+// pair('first value')('second value')(second)
+// // => 'second value'
+// ```
+var second = (0, _combinatorsJs.T)((0, _combinatorsJs.K)(_combinatorsJs.I));
 
 //
 // *** NB Work is still in progress on lists, I'm not happy with the implementations right now***
@@ -236,9 +312,16 @@ exports.zero = zero;
 exports.one = one;
 exports.two = two;
 exports.three = three;
+exports.four = four;
+exports.five = five;
+exports.six = six;
+exports.seven = seven;
+exports.eight = eight;
+exports.nine = nine;
+exports.ten = ten;
 exports.isZero = isZero;
-exports.add = add;
 exports.succ = succ;
+exports.add = add;
 exports.pred = pred;
 exports.sub = sub;
 exports.pair = pair;
