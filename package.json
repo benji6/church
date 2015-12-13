@@ -7,6 +7,7 @@
   "scripts": {
     "build": "rm -rf dist && mkdir dist && rollup src/index.js | babel --presets es2015 -o dist/index.js",
     "docs": "docco src/*.js",
+    "prepublish": "npm run test && npm run build && npm run docs",
     "test": "babel-node node_modules/.bin/tape 'test/**/*'",
     "watch-docs": "nodemon --exec npm run docs",
     "watch-test": "nodemon --exec npm test"
