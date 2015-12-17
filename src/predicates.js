@@ -1,3 +1,4 @@
+import {K, V} from 'combinators-js'
 import {and, not, True, False} from './booleans'
 import {sub} from './numerals'
 
@@ -6,7 +7,7 @@ import {sub} from './numerals'
 // isZero(zero) // => True
 // isZero(one) // => False
 // ```
-export const isZero = a => a(_ => False)(True)
+export const isZero = V(K(False))(True)
 
 // `lte` takes two numerals and returns True if the first is less than or equal to the first and False otherwise
 // ```javascript
