@@ -14,8 +14,8 @@ export const repeat = a => b => b(c => node(a)(c))(nil)
 
 // HACK: cheating with assignment
 export const range = a => b => {
-	let i = succ(b)
-	return sub(i)(a)(c => node(i = pred(i))(c))(nil)
+  let i = succ(b)
+  return sub(i)(a)(c => node(i = pred(i))(c))(nil)
 }
 
 export const foldr = Y(recur => f => a => l => l(_ => a)(cell => f(recur(f)(a)(cell(K(I))))(cell(K))))
@@ -24,6 +24,6 @@ export const map = f => l => foldr(acc => val => node(f(val))(acc))(nil)(l)
 
 // HACK: cheating with assignment
 export const mapIndexed = f => l => {
-	let i = zero
-	return foldr(acc => val => node(f(val)(pred(i = succ(i))))(acc))(nil)(l)
+  let i = zero
+  return foldr(acc => val => node(f(val)(pred(i = succ(i))))(acc))(nil)(l)
 }
