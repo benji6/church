@@ -17,8 +17,25 @@
     "url": "git+https://github.com/benji6/church.git"
   },
   "keywords": [
+    "alonzo",
+    "boolean",
+    "calculus",
+    "car",
+    "cdr",
     "church",
-    "encoding"
+    "combinatory",
+    "cons",
+    "curry",
+    "encoding",
+    "functional",
+    "haskell",
+    "lambda",
+    "lisp",
+    "list",
+    "logic",
+    "numeral",
+    "pair",
+    "predicate"
   ],
   "author": "Ben Hall",
   "license": "MIT",
