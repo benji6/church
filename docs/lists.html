@@ -122,8 +122,8 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> range = a =&gt; b =&gt; {
-	<span class="hljs-keyword">let</span> i = succ(b)
-	<span class="hljs-keyword">return</span> sub(i)(a)(c =&gt; node(i = pred(i))(c))(nil)
+  <span class="hljs-keyword">let</span> i = succ(b)
+  <span class="hljs-keyword">return</span> sub(i)(a)(c =&gt; node(i = pred(i))(c))(nil)
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foldr = Y(recur =&gt; f =&gt; a =&gt; l =&gt; l(_ =&gt; a)(cell =&gt; f(recur(f)(a)(cell(K(I))))(cell(K))))
@@ -144,8 +144,8 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> mapIndexed = f =&gt; l =&gt; {
-	<span class="hljs-keyword">let</span> i = zero
-	<span class="hljs-keyword">return</span> foldr(acc =&gt; val =&gt; node(f(val)(pred(i = succ(i))))(acc))(nil)(l)
+  <span class="hljs-keyword">let</span> i = zero
+  <span class="hljs-keyword">return</span> foldr(acc =&gt; val =&gt; node(f(val)(pred(i = succ(i))))(acc))(nil)(l)
 }</pre></div></div>
             
         </li>
