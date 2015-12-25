@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 exports.mapIndexed = exports.map = exports.foldl = exports.foldr = exports.range = exports.repeat = exports.node = exports.nil = exports.second = exports.first = exports.pair = exports.eq = exports.gt = exports.lt = exports.gte = exports.lte = exports.isZero = exports.exp = exports.mult = exports.sub = exports.add = exports.pred = exports.succ = exports.ten = exports.nine = exports.eight = exports.seven = exports.six = exports.five = exports.four = exports.three = exports.two = exports.one = exports.zero = exports.xor = exports.not = exports.or = exports.and = exports.If = exports.False = exports.True = undefined;
 
@@ -28,21 +28,13 @@ var If = _combinatorsJs.I__;
 // and(True)(True) // => True
 // and(True)(False) // => False
 // ```
-var and = function and(a) {
-	return function (b) {
-		return a(b)(a);
-	};
-};
+var and = (0, _combinatorsJs.H)(_combinatorsJs.I);
 // Standard 'or'
 // ```javascript
 // or(True)(False) // => True
 // or(False)(False) // => False
 // ```
-var or = function or(a) {
-	return function (b) {
-		return a(a)(b);
-	};
-};
+var or = (0, _combinatorsJs.I__)(_combinatorsJs.M);
 // Standard 'not'
 // ```javascript
 // not(False) // => True
@@ -55,13 +47,13 @@ var not = _combinatorsJs.C;
 // xor(True)(True) // => False
 // ```
 var xor = function xor(a) {
-	return function (b) {
-		return function (c) {
-			return function (d) {
-				return a(b(d)(c))(b(c)(d));
-			};
-		};
-	};
+  return function (b) {
+    return function (c) {
+      return function (d) {
+        return a(b(d)(c))(b(c)(d));
+      };
+    };
+  };
 };
 
 // This is how numerals are encoded. They take a function and a value then apply that function to the value or the previous result of application n times where n is the number being encoded. In JavaScript we can decode numerals simply like this:
@@ -73,60 +65,52 @@ var xor = function xor(a) {
 // decodeNumber(three) // => 3
 // ```
 
-var zero = function zero(f) {
-	return function (x) {
-		return x;
-	};
-};
-var one = function one(f) {
-	return function (x) {
-		return f(x);
-	};
-};
+var zero = (0, _combinatorsJs.K)(_combinatorsJs.I);
+var one = _combinatorsJs.I_;
 var two = function two(f) {
-	return function (x) {
-		return f(f(x));
-	};
+  return function (x) {
+    return f(f(x));
+  };
 };
 var three = function three(f) {
-	return function (x) {
-		return f(f(f(x)));
-	};
+  return function (x) {
+    return f(f(f(x)));
+  };
 };
 var four = function four(f) {
-	return function (x) {
-		return f(f(f(f(x))));
-	};
+  return function (x) {
+    return f(f(f(f(x))));
+  };
 };
 var five = function five(f) {
-	return function (x) {
-		return f(f(f(f(f(x)))));
-	};
+  return function (x) {
+    return f(f(f(f(f(x)))));
+  };
 };
 var six = function six(f) {
-	return function (x) {
-		return f(f(f(f(f(f(x))))));
-	};
+  return function (x) {
+    return f(f(f(f(f(f(x))))));
+  };
 };
 var seven = function seven(f) {
-	return function (x) {
-		return f(f(f(f(f(f(f(x)))))));
-	};
+  return function (x) {
+    return f(f(f(f(f(f(f(x)))))));
+  };
 };
 var eight = function eight(f) {
-	return function (x) {
-		return f(f(f(f(f(f(f(f(x))))))));
-	};
+  return function (x) {
+    return f(f(f(f(f(f(f(f(x))))))));
+  };
 };
 var nine = function nine(f) {
-	return function (x) {
-		return f(f(f(f(f(f(f(f(f(x)))))))));
-	};
+  return function (x) {
+    return f(f(f(f(f(f(f(f(f(x)))))))));
+  };
 };
 var ten = function ten(f) {
-	return function (x) {
-		return f(f(f(f(f(f(f(f(f(f(x))))))))));
-	};
+  return function (x) {
+    return f(f(f(f(f(f(f(f(f(f(x))))))))));
+  };
 };
 
 // `succ` takes a numeral and returns its successor
@@ -134,12 +118,12 @@ var ten = function ten(f) {
 // succ(three) // => four
 // succ(four) // => five
 // ```
-var succ = function succ(n) {
-	return function (f) {
-		return function (x) {
-			return n(f)(f(x));
-		};
-	};
+var succ = function succ(a) {
+  return function (b) {
+    return function (c) {
+      return a(b)(b(c));
+    };
+  };
 };
 
 // `pred` takes a numeral and returns its predecessor. There is a catch here, if the number supplied is zero then zero will be returned
@@ -148,32 +132,26 @@ var succ = function succ(n) {
 // pred(four) // => three
 // pred(zero) // => zero
 // ```
-var pred = function pred(n) {
-	return function (f) {
-		return function (x) {
-			return n(function (g) {
-				return function (h) {
-					return h(g(f));
-				};
-			})(function (_) {
-				return x;
-			})(_combinatorsJs.I);
-		};
-	};
+var pred = function pred(a) {
+  return function (b) {
+    return function (c) {
+      return a((0, _combinatorsJs.Q4)(b))((0, _combinatorsJs.K)(c))(_combinatorsJs.I);
+    };
+  };
 };
 
 // `add` takes two numerals and returns their sum
 // ```javascript
 // add(four)(three) // => seven
 // ```
-var add = function add(m) {
-	return function (n) {
-		return function (f) {
-			return function (x) {
-				return n(f)(m(f)(x));
-			};
-		};
-	};
+var add = function add(a) {
+  return function (b) {
+    return function (c) {
+      return function (d) {
+        return b(c)(a(c)(d));
+      };
+    };
+  };
 };
 
 // `sub` takes two numerals and returns their difference. Again there is catch in that if the difference is negative then zero will be returned
@@ -183,23 +161,13 @@ var add = function add(m) {
 // sub(three)(three) // => zero
 // sub(three)(four) // => zero
 // ```
-var sub = function sub(m) {
-	return function (n) {
-		return n(pred)(m);
-	};
-};
+var sub = (0, _combinatorsJs.V)(pred);
 
 // `mult` takes two numerals and returns their product
 // ```javascript
 // mult(two)(five) // => ten
 // ```
-var mult = function mult(m) {
-	return function (n) {
-		return function (f) {
-			return m(n(f));
-		};
-	};
-};
+var mult = _combinatorsJs.B;
 
 // `exp` takes two numerals and returns the first to the power of the second
 // ```javascript
@@ -207,22 +175,14 @@ var mult = function mult(m) {
 // exp(two)(two) // => four
 // exp(three)(two) // => nine
 // ```
-var exp = function exp(m) {
-	return function (n) {
-		return n(m);
-	};
-};
+var exp = _combinatorsJs.T;
 
 // `isZero` takes a value and returns Church encoded `True` if it is a Church encoded `zero` and `False` otherwise
 // ```javascript
 // isZero(zero) // => True
 // isZero(one) // => False
 // ```
-var isZero = function isZero(a) {
-	return a(function (_) {
-		return False;
-	})(True);
-};
+var isZero = (0, _combinatorsJs.V)((0, _combinatorsJs.K)(False))(True);
 
 // `lte` takes two numerals and returns True if the first is less than or equal to the first and False otherwise
 // ```javascript
@@ -231,9 +191,9 @@ var isZero = function isZero(a) {
 // lte(four)(three) // => False
 // ```
 var lte = function lte(a) {
-	return function (b) {
-		return isZero(sub(a)(b));
-	};
+  return function (b) {
+    return isZero(sub(a)(b));
+  };
 };
 
 // `gte` takes two numerals and returns True if the first is greater than or equal to the first and False otherwise
@@ -243,9 +203,9 @@ var lte = function lte(a) {
 // gte(four)(three) // => True
 // ```
 var gte = function gte(a) {
-	return function (b) {
-		return isZero(sub(b)(a));
-	};
+  return function (b) {
+    return isZero(sub(b)(a));
+  };
 };
 
 // `lt` takes two numerals and returns True if the first is less than the first and False otherwise
@@ -255,9 +215,9 @@ var gte = function gte(a) {
 // lt(four)(three) // => False
 // ```
 var lt = function lt(a) {
-	return function (b) {
-		return not(gte(a)(b));
-	};
+  return function (b) {
+    return not(gte(a)(b));
+  };
 };
 
 // `gt` takes two numerals and returns True if the first is greater than the first and False otherwise
@@ -267,9 +227,9 @@ var lt = function lt(a) {
 // gt(four)(three) // => True
 // ```
 var gt = function gt(a) {
-	return function (b) {
-		return not(lte(a)(b));
-	};
+  return function (b) {
+    return not(lte(a)(b));
+  };
 };
 
 // `eq` takes two numerals and returns True if the first is equal to the first and False otherwise
@@ -278,9 +238,9 @@ var gt = function gt(a) {
 // eq(four)(three) // => False
 // ```
 var eq = function eq(a) {
-	return function (b) {
-		return and(lte(a)(b))(lte(b)(a));
-	};
+  return function (b) {
+    return and(lte(a)(b))(lte(b)(a));
+  };
 };
 
 // `pair` takes two values which are effectively stored as a two-tuple that can then be accessed by `first` and `second` detailed below
@@ -309,84 +269,84 @@ var second = (0, _combinatorsJs.T)((0, _combinatorsJs.K)(_combinatorsJs.I));
 // Documentation to be written
 
 var nil = function nil(a) {
-	return function (b) {
-		return a();
-	};
+  return function (b) {
+    return a();
+  };
 };
 var node = function node(a) {
-	return function (b) {
-		return function (c) {
-			return function (d) {
-				return d((0, _combinatorsJs.V)(a)(b));
-			};
-		};
-	};
+  return function (b) {
+    return function (c) {
+      return function (d) {
+        return d((0, _combinatorsJs.V)(a)(b));
+      };
+    };
+  };
 };
 
 var repeat = function repeat(a) {
-	return function (b) {
-		return b(function (c) {
-			return node(a)(c);
-		})(nil);
-	};
+  return function (b) {
+    return b(function (c) {
+      return node(a)(c);
+    })(nil);
+  };
 };
 
 // HACK: cheating with assignment
 var range = function range(a) {
-	return function (b) {
-		var i = succ(b);
-		return sub(i)(a)(function (c) {
-			return node(i = pred(i))(c);
-		})(nil);
-	};
+  return function (b) {
+    var i = succ(b);
+    return sub(i)(a)(function (c) {
+      return node(i = pred(i))(c);
+    })(nil);
+  };
 };
 
 var foldr = (0, _combinatorsJs.Y)(function (recur) {
-	return function (f) {
-		return function (a) {
-			return function (l) {
-				return l(function (_) {
-					return a;
-				})(function (cell) {
-					return f(recur(f)(a)(cell((0, _combinatorsJs.K)(_combinatorsJs.I))))(cell(_combinatorsJs.K));
-				});
-			};
-		};
-	};
+  return function (f) {
+    return function (a) {
+      return function (l) {
+        return l(function (_) {
+          return a;
+        })(function (cell) {
+          return f(recur(f)(a)(cell((0, _combinatorsJs.K)(_combinatorsJs.I))))(cell(_combinatorsJs.K));
+        });
+      };
+    };
+  };
 });
 var foldl = (0, _combinatorsJs.Y)(function (recur) {
-	return function (f) {
-		return function (a) {
-			return function (l) {
-				return l(function (_) {
-					return a;
-				})(function (cell) {
-					return recur(f)(f(a)(cell(_combinatorsJs.K)))(cell((0, _combinatorsJs.K)(_combinatorsJs.I)));
-				});
-			};
-		};
-	};
+  return function (f) {
+    return function (a) {
+      return function (l) {
+        return l(function (_) {
+          return a;
+        })(function (cell) {
+          return recur(f)(f(a)(cell(_combinatorsJs.K)))(cell((0, _combinatorsJs.K)(_combinatorsJs.I)));
+        });
+      };
+    };
+  };
 });
 var map = function map(f) {
-	return function (l) {
-		return foldr(function (acc) {
-			return function (val) {
-				return node(f(val))(acc);
-			};
-		})(nil)(l);
-	};
+  return function (l) {
+    return foldr(function (acc) {
+      return function (val) {
+        return node(f(val))(acc);
+      };
+    })(nil)(l);
+  };
 };
 
 // HACK: cheating with assignment
 var mapIndexed = function mapIndexed(f) {
-	return function (l) {
-		var i = zero;
-		return foldr(function (acc) {
-			return function (val) {
-				return node(f(val)(pred(i = succ(i))))(acc);
-			};
-		})(nil)(l);
-	};
+  return function (l) {
+    var i = zero;
+    return foldr(function (acc) {
+      return function (val) {
+        return node(f(val)(pred(i = succ(i))))(acc);
+      };
+    })(nil)(l);
+  };
 };
 
 exports.True = True;
