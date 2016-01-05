@@ -73,7 +73,8 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {I, K, V, Y} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {I, I_, K, V, Y} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span>
+<span class="hljs-keyword">import</span> {not, and, True} <span class="hljs-keyword">from</span> <span class="hljs-string">'./booleans'</span>
 <span class="hljs-keyword">import</span> {sub, pred, succ, zero} <span class="hljs-keyword">from</span> <span class="hljs-string">'./numerals'</span></pre></div></div>
             
         </li>
@@ -85,7 +86,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p><strong><em> NB Work is still in progress on lists, I’m not happy with the implementations right now</em></strong></p>
+              <p><strong><em> NB Work is still in progress on lists, I’m not happy with the implementations right now so don’t consider this stable</em></strong></p>
 
             </div>
             
@@ -103,9 +104,15 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> nil = a =&gt; b =&gt; a()
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> nil = I_
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> node = a =&gt; b =&gt; c =&gt; d =&gt; d(V(a)(b))
 
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foldr = Y(recur =&gt; f =&gt; a =&gt; l =&gt; l(K(a))(cell =&gt; f(recur(f)(a)(cell(K(I))))(cell(K))))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foldl = Y(recur =&gt; f =&gt; a =&gt; l =&gt; l(K(a))(cell =&gt; recur(f)(f(a)(cell(K)))(cell(K(I)))))
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> all = f =&gt; foldl(a =&gt; b =&gt; and(a)(f(b)))(True)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> map = f =&gt; foldr(acc =&gt; val =&gt; node(f(val))(acc))(nil)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> none = f =&gt; xs =&gt; not(all(f)(xs))
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> repeat = a =&gt; b =&gt; b(c =&gt; node(a)(c))(nil)</pre></div></div>
             
         </li>
@@ -122,13 +129,9 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> range = a =&gt; b =&gt; {
-	<span class="hljs-keyword">let</span> i = succ(b)
-	<span class="hljs-keyword">return</span> sub(i)(a)(c =&gt; node(i = pred(i))(c))(nil)
-}
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foldr = Y(recur =&gt; f =&gt; a =&gt; l =&gt; l(_ =&gt; a)(cell =&gt; f(recur(f)(a)(cell(K(I))))(cell(K))))
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foldl = Y(recur =&gt; f =&gt; a =&gt; l =&gt; l(_ =&gt; a)(cell =&gt; recur(f)(f(a)(cell(K)))(cell(K(I)))))
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> map = f =&gt; l =&gt; foldr(acc =&gt; val =&gt; node(f(val))(acc))(nil)(l)</pre></div></div>
+  <span class="hljs-keyword">let</span> i = succ(b)
+  <span class="hljs-keyword">return</span> sub(i)(a)(c =&gt; node(i = pred(i))(c))(nil)
+}</pre></div></div>
             
         </li>
         
@@ -144,8 +147,8 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> mapIndexed = f =&gt; l =&gt; {
-	<span class="hljs-keyword">let</span> i = zero
-	<span class="hljs-keyword">return</span> foldr(acc =&gt; val =&gt; node(f(val)(pred(i = succ(i))))(acc))(nil)(l)
+  <span class="hljs-keyword">let</span> i = zero
+  <span class="hljs-keyword">return</span> foldr(acc =&gt; val =&gt; node(f(val)(pred(i = succ(i))))(acc))(nil)(l)
 }</pre></div></div>
             
         </li>

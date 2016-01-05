@@ -73,7 +73,7 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {I} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {B, I, I_, K, Q4, T, V} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span></pre></div></div>
             
         </li>
         
@@ -95,8 +95,8 @@ decodeNumber(three) <span class="hljs-comment">// =&gt; 3</span>
             </div>
             
             <div class="content"><div class='highlight'><pre>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> zero = f =&gt; x =&gt; x
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> one = f =&gt; x =&gt; f(x)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> zero = K(I)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> one = I_
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> two = f =&gt; x =&gt; f(f(x))
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> three = f =&gt; x =&gt; f(f(f(x)))
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> four = f =&gt; x =&gt; f(f(f(f(x))))
@@ -123,7 +123,7 @@ succ(four) <span class="hljs-comment">// =&gt; five</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> succ = n =&gt; f =&gt; x =&gt; n(f)(f(x))</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> succ = a =&gt; b =&gt; c =&gt; a(b)(b(c))</pre></div></div>
             
         </li>
         
@@ -142,7 +142,7 @@ pred(zero) <span class="hljs-comment">// =&gt; zero</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> pred = n =&gt; f =&gt; x =&gt; n(g =&gt; h =&gt; h(g(f)))(_ =&gt; x)(I)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> pred = a =&gt; b =&gt; c =&gt; a(Q4(b))(K(c))(I)</pre></div></div>
             
         </li>
         
@@ -159,7 +159,7 @@ pred(zero) <span class="hljs-comment">// =&gt; zero</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> add = m =&gt; n =&gt; f =&gt; x =&gt; n(f)(m(f)(x))</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> add = a =&gt; b =&gt; c =&gt; d =&gt; b(c)(a(c)(d))</pre></div></div>
             
         </li>
         
@@ -179,7 +179,7 @@ sub(three)(four) <span class="hljs-comment">// =&gt; zero</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> sub = m =&gt; n =&gt; n(pred)(m)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> sub = V(pred)</pre></div></div>
             
         </li>
         
@@ -196,7 +196,7 @@ sub(three)(four) <span class="hljs-comment">// =&gt; zero</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> mult = m =&gt; n =&gt; f =&gt; m(n(f))</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> mult = B</pre></div></div>
             
         </li>
         
@@ -215,7 +215,7 @@ exp(three)(two) <span class="hljs-comment">// =&gt; nine</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> exp = m =&gt; n =&gt; n(m)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> exp = T</pre></div></div>
             
         </li>
         
