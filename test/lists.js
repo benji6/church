@@ -7,6 +7,7 @@ import {
   foldr,
   gt,
   map,
+  none,
   mapIndexed,
   nil,
   node,
@@ -57,6 +58,16 @@ test('Lists - mapIndexed', t => {
   t.equal(listToString(mapIndexed(a => _ => a * 2)(l123)), ' 2 4 6')
   let i = 0
   mapIndexed(_ => b => t.equal(decodeNumber(b), i++))(l123)
+  t.end()
+})
+
+test('Lists - none', t => {
+  t.equal(decodeBoolean(none(gt(ten))(oneTwoThree)), false)
+  t.equal(decodeBoolean(none(gt(four))(oneTwoThree)), false)
+  t.equal(decodeBoolean(none(gt(three))(oneTwoThree)), true)
+  t.equal(decodeBoolean(none(gt(two))(oneTwoThree)), true)
+  t.equal(decodeBoolean(none(gt(one))(oneTwoThree)), true)
+  t.equal(decodeBoolean(none(gt(zero))(oneTwoThree)), true)
   t.end()
 })
 

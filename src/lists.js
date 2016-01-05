@@ -1,5 +1,5 @@
 import {I, I_, K, V, Y} from 'combinators-js'
-import {and, True} from './booleans'
+import {not, and, True} from './booleans'
 import {sub, pred, succ, zero} from './numerals'
 //
 // *** NB Work is still in progress on lists, I'm not happy with the implementations right now os don't consider this stable***
@@ -15,6 +15,7 @@ export const foldl = Y(recur => f => a => l => l(K(a))(cell => recur(f)(f(a)(cel
 
 export const all = f => foldl(a => b => and(a)(f(b)))(True)
 export const map = f => foldr(acc => val => node(f(val))(acc))(nil)
+export const none = f => xs => not(all(f)(xs))
 export const repeat = a => b => b(c => node(a)(c))(nil)
 
 // HACK: cheating with assignment
