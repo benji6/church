@@ -2,7 +2,7 @@ import {I, I_, K, V, Y} from 'combinators-js'
 import {not, and, True} from './booleans'
 import {sub, pred, succ, zero} from './numerals'
 //
-// *** NB Work is still in progress on lists, I'm not happy with the implementations right now os don't consider this stable***
+// *** NB Work is still in progress on lists, I'm not happy with the implementations right now so don't consider this stable***
 //
 
 // Documentation to be written
