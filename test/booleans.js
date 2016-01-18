@@ -11,43 +11,43 @@ import {
 } from '../src'
 
 test('Booleans - true and false values', t => {
-  t.equal(decodeBoolean(True), true)
-  t.equal(decodeBoolean(False), false)
+  t.true(decodeBoolean(True))
+  t.false(decodeBoolean(False))
   t.end()
 })
 
 test('Booleans - and', t => {
-  t.equal(decodeBoolean(and(False)(False)), false)
-  t.equal(decodeBoolean(and(False)(True)), false)
-  t.equal(decodeBoolean(and(True)(False)), false)
-  t.equal(decodeBoolean(and(True)(True)), true)
+  t.false(decodeBoolean(and(False)(False)))
+  t.false(decodeBoolean(and(False)(True)))
+  t.false(decodeBoolean(and(True)(False)))
+  t.true(decodeBoolean(and(True)(True)))
   t.end()
 })
 
 test('Booleans - or', t => {
-  t.equal(decodeBoolean(or(False)(False)), false)
-  t.equal(decodeBoolean(or(False)(True)), true)
-  t.equal(decodeBoolean(or(True)(False)), true)
-  t.equal(decodeBoolean(or(True)(True)), true)
+  t.false(decodeBoolean(or(False)(False)))
+  t.true(decodeBoolean(or(False)(True)))
+  t.true(decodeBoolean(or(True)(False)))
+  t.true(decodeBoolean(or(True)(True)))
   t.end()
 })
 
 test('Booleans - xor', t => {
-  t.equal(decodeBoolean(xor(False)(False)), false)
-  t.equal(decodeBoolean(xor(False)(True)), true)
-  t.equal(decodeBoolean(xor(True)(False)), true)
-  t.equal(decodeBoolean(xor(True)(True)), false)
+  t.false(decodeBoolean(xor(False)(False)))
+  t.true(decodeBoolean(xor(False)(True)))
+  t.true(decodeBoolean(xor(True)(False)))
+  t.false(decodeBoolean(xor(True)(True)))
   t.end()
 })
 
 test('Booleans - not', t => {
-  t.equal(decodeBoolean(not(True)), false)
-  t.equal(decodeBoolean(not(False)), true)
+  t.false(decodeBoolean(not(True)))
+  t.true(decodeBoolean(not(False)))
   t.end()
 })
 
 test('Booleans - If', t => {
-  t.equal(If(True)(true)(false), true)
-  t.equal(If(False)(true)(false), false)
+  t.true(If(True)(true)(false))
+  t.false(If(False)(true)(false))
   t.end()
 })
