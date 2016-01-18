@@ -1,31 +1,32 @@
-import {I, I_, K, V, Y} from 'combinators-js'
-import {not, and, True} from './booleans'
-import {sub, pred, succ, zero} from './numerals'
+import {Y} from 'combinators-js'
+import {and, False, If, not, True} from './booleans'
+import {first, pair, second} from './pairs'
+import {sub, succ, zero} from './numerals'
+
 //
 // *** NB Work is still in progress on lists, I'm not happy with the implementations right now so don't consider this stable***
 //
 
 // Documentation to be written
 
-export const nil = I_
-export const node = a => b => c => d => d(V(a)(b))
+const flip = f => a => b => f(b)(a)
 
-export const foldr = Y(recur => f => a => l => l(K(a))(cell => f(recur(f)(a)(cell(K(I))))(cell(K))))
-export const foldl = Y(recur => f => a => l => l(K(a))(cell => recur(f)(f(a)(cell(K)))(cell(K(I)))))
+export const nil = pair(True)(True)
+export const isNil = first
+export const cons = a => b => pair(False)(pair(a)(b))
+export const head = a => first(second(a))
+export const tail = a => second(second(a))
+
+export const range = a => b => sub(succ(b))(a)(c => cons(sub(b)(length(c)))(c))(nil)
+export const repeat = a => b => b(c => cons(a)(c))(nil)
+
+export const foldl = Y(r => f => a => l => If(isNil(l))(_ => a)(_ => r(f)(f(a)(head(l)))(tail(l)))())
+export const foldr = Y(r => f => a => l => If(isNil(l))(_ => a)(_ => f(r(f)(a)(tail(l)))(head(l)))())
+
+export const append = x => xs => foldr(flip(cons))(cons(x)(nil))(xs)
+export const concat = xs => ys => foldr(flip(cons))(ys)(xs)
+export const map = f => foldr(acc => val => cons(f(val))(acc))(nil)
 
 export const all = f => foldl(a => b => and(a)(f(b)))(True)
-export const map = f => foldr(acc => val => node(f(val))(acc))(nil)
+export const length = foldl(a => b => succ(a))(zero)
 export const none = f => xs => not(all(f)(xs))
-export const repeat = a => b => b(c => node(a)(c))(nil)
-
-// HACK: cheating with assignment
-export const range = a => b => {
-  let i = succ(b)
-  return sub(i)(a)(c => node(i = pred(i))(c))(nil)
-}
-
-// HACK: cheating with assignment
-export const mapIndexed = f => l => {
-  let i = zero
-  return foldr(acc => val => node(f(val)(pred(i = succ(i))))(acc))(nil)(l)
-}
