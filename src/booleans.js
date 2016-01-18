@@ -7,35 +7,41 @@ import {C, K, H, I, I__, M} from 'combinators-js'
 // True('first')('second') // => 'first'`
 // ```
 export const True = K
+
 // `False` takes 2 arguments and returns the second
 // ```javascript
 // False('first')('second') // => 'second'
 // ```
 export const False = K(I)
+
 // `If` takes a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False
 // ```javascript
 // If(True)('then')('else') // => 'then'
 // If(False)('then')('else') // => 'else'
 // ```
 export const If = I__
+
 // Standard 'and'
 // ```javascript
 // and(True)(True) // => True
 // and(True)(False) // => False
 // ```
 export const and = H(I)
+
 // Standard 'or'
 // ```javascript
 // or(True)(False) // => True
 // or(False)(False) // => False
 // ```
 export const or = I__(M)
+
 // Standard 'not'
 // ```javascript
 // not(False) // => True
 // not(True) // => False
 // ```
 export const not = C
+
 // Standard 'xor'
 // ```javascript
 // xor(True)(False) // => True
