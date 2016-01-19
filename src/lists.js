@@ -87,6 +87,14 @@ export const append = x => xs => foldr(C(cons))(cons(x)(nil))(xs)
 // ```
 export const concat = xs => ys => foldr(C(cons))(ys)(xs)
 
+// ## Shrinking a list
+
+// `drop` takes a numeral n and a list and returns a new list with all but the first n values
+// ```javascript
+// drop(two)(list123) // => list of [three]
+// ```
+export const drop = n => xs => n(tail)(xs)
+
 // ## Querying a list
 
 // `all` takes a predicate and a list and returns `True` if every value applied with the predicate returns `True` and returns `False` otherwise
