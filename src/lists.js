@@ -52,7 +52,7 @@ export const range = a => b => sub(succ(b))(a)(c => cons(sub(b)(length(c)))(c))(
 // `repeat` takes a value and a numeral and returns a new list of length specified by second arguments filled with the provided value
 // ```javascript
 // repeat(one)(three) // => list of [one one one]
-// range(True)(four) // => list of [True True True True]
+// repeat(True)(four) // => list of [True True True True]
 // ```
 export const repeat = a => b => b(c => cons(a)(c))(nil)
 
