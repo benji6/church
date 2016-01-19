@@ -28,6 +28,7 @@ import {
   range,
   reject,
   repeat,
+  reverse,
   six,
   tail,
   ten,
@@ -160,6 +161,11 @@ test('Lists - reject', t => {
 
 test('Lists - repeat', t => {
   t.deepEqual(decodeList(repeat('a')(three)), ['a', 'a', 'a'])
+  t.end()
+})
+
+test('Lists - reverse', t => {
+  t.deepEqual(decodeList(reverse(l123)).map(decodeNumber), [3, 2, 1])
   t.end()
 })
 

@@ -155,3 +155,9 @@ export const nth = n => B(head)(n(tail))
 // map(mult(two))(list123) // => list of [two four six]
 // ```
 export const map = f => foldr(acc => val => cons(f(val))(acc))(nil)
+
+// `reverse` takes a list and reverses it
+// ```javascript
+// reverse(list123) // => list of [three two one]
+// ```
+export const reverse = foldl(C(cons))(nil)
