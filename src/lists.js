@@ -107,6 +107,12 @@ export const drop = n => xs => n(tail)(xs)
 // ```
 export const filter = f => foldr(acc => val => If(f(val))(cons(val)(acc))(acc))(nil)
 
+// `reject` takes a predicate and a list and returns a list comprised only by those values for which the predicate returns `False`
+// ```javascript
+// filter(gte(two)(list123) // => list of [three]
+// ```
+export const reject = f => foldr(acc => val => If(f(val))(acc)(cons(val)(acc)))(nil)
+
 // ## Querying a list
 
 // `all` takes a predicate and a list and returns `True` if every value applied with the predicate returns `True` and returns `False` otherwise

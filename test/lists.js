@@ -12,6 +12,7 @@ import {
   foldr,
   four,
   gt,
+  gte,
   head,
   isNil,
   last,
@@ -25,6 +26,7 @@ import {
   one,
   prepend,
   range,
+  reject,
   repeat,
   six,
   tail,
@@ -146,6 +148,13 @@ test('Lists - range', t => {
   t.deepEqual(decodeList(range(zero)(three)).map(decodeNumber), [0, 1, 2, 3])
   t.deepEqual(decodeList(range(one)(three)).map(decodeNumber), [1, 2, 3])
   t.deepEqual(decodeList(range(two)(three)).map(decodeNumber), [2, 3])
+  t.end()
+})
+
+test('Lists - reject', t => {
+  t.deepEqual(decodeList(reject(gte(three))(l123)).map(decodeNumber), [])
+  t.deepEqual(decodeList(reject(gte(two))(l123)).map(decodeNumber), [3])
+  t.deepEqual(decodeList(reject(gte(one))(l123)).map(decodeNumber), [2, 3])
   t.end()
 })
 
