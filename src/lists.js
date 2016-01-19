@@ -87,6 +87,12 @@ export const append = x => xs => foldr(C(cons))(cons(x)(nil))(xs)
 // ```
 export const concat = xs => ys => foldr(C(cons))(ys)(xs)
 
+// `prepend` takes a value and a list then returns a list with the value prepended
+// ```javascript
+// prepend(zero)(list123) // => list of [zero one two three]
+// ```
+export const prepend = cons
+
 // ## Shrinking a list
 
 // `drop` takes a numeral n and a list and returns a new list with all but the first n values

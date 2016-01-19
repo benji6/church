@@ -23,6 +23,7 @@ import {
   none,
   nth,
   one,
+  prepend,
   range,
   repeat,
   six,
@@ -133,6 +134,11 @@ test('Lists - nth', t => {
   t.equal(decodeNumber(nth(zero)(l123)), 1)
   t.equal(decodeNumber(nth(one)(l123)), 2)
   t.equal(decodeNumber(nth(two)(l246)), 6)
+  t.end()
+})
+
+test('Lists - prepend', t => {
+  t.deepEqual(decodeList(prepend(zero)(l123)).map(decodeNumber), [0, 1, 2, 3])
   t.end()
 })
 
