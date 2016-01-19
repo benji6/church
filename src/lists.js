@@ -95,11 +95,17 @@ export const concat = xs => ys => foldr(C(cons))(ys)(xs)
 // ```
 export const drop = n => xs => n(tail)(xs)
 
+// `filter` takes a predicate and a list and returns a list comprised only by those values for which the predicate returns `True`
+// ```javascript
+// filter(lt(two)(list123) // => list of [three]
+// ```
+export const filter = f => foldr(acc => val => If(f(val))(cons(val)(acc))(acc))(nil)
+
 // ## Querying a list
 
 // `all` takes a predicate and a list and returns `True` if every value applied with the predicate returns `True` and returns `False` otherwise
 // ```javascript
-// all(lt(five))(list123) // => True
+// all(lt(zero))(list123) // => True
 // all(lt(three))(list123) // => False
 // ```
 export const all = f => foldl(a => b => and(a)(f(b)))(True)

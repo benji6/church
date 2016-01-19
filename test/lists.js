@@ -7,6 +7,7 @@ import {
   concat,
   cons,
   drop,
+  filter,
   foldl,
   foldr,
   four,
@@ -14,6 +15,7 @@ import {
   head,
   isNil,
   length,
+  lt,
   map,
   mult,
   nil,
@@ -64,6 +66,13 @@ test('Lists - cons', t => {
 test('Lists - drop', t => {
   t.deepEqual(decodeList(drop(one)(l123)).map(decodeNumber), [2, 3])
   t.deepEqual(decodeList(drop(two)(l123)).map(decodeNumber), [3])
+  t.end()
+})
+
+test('Lists - filter', t => {
+  t.deepEqual(decodeList(filter(lt(three))(l123)).map(decodeNumber), [])
+  t.deepEqual(decodeList(filter(lt(two))(l123)).map(decodeNumber), [3])
+  t.deepEqual(decodeList(filter(lt(one))(l123)).map(decodeNumber), [2, 3])
   t.end()
 })
 
