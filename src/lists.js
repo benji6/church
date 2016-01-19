@@ -1,4 +1,4 @@
-import {C, K, I, Y} from 'combinators-js'
+import {B, C, K, I, Y} from 'combinators-js'
 import {and, False, If, not, True} from './booleans'
 import {first, pair, second} from './pairs'
 import {sub, succ, zero} from './numerals'
@@ -128,6 +128,13 @@ export const length = foldl(a => b => succ(a))(zero)
 // all(lt(three))(list123) // => True
 // ```
 export const none = f => xs => not(all(f)(xs))
+
+// `nth` takes a numeral n and a list and returns the value at index n
+// ```javascript
+// nth(zero)(list123) // => one
+// nth(two)(list123) // => three
+// ```
+export const nth = n => B(head)(n(tail))
 
 // ## Changing lists
 

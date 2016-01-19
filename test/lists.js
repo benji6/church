@@ -21,6 +21,7 @@ import {
   mult,
   nil,
   none,
+  nth,
   one,
   range,
   repeat,
@@ -125,6 +126,13 @@ test('Lists - none', t => {
   t.true(decodeBoolean(none(gt(two))(l123)))
   t.true(decodeBoolean(none(gt(one))(l123)))
   t.true(decodeBoolean(none(gt(zero))(l123)))
+  t.end()
+})
+
+test('Lists - nth', t => {
+  t.equal(decodeNumber(nth(zero)(l123)), 1)
+  t.equal(decodeNumber(nth(one)(l123)), 2)
+  t.equal(decodeNumber(nth(two)(l246)), 6)
   t.end()
 })
 
