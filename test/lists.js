@@ -14,6 +14,7 @@ import {
   gt,
   head,
   isNil,
+  last,
   length,
   lt,
   map,
@@ -98,6 +99,11 @@ test('Lists - head', t => {
 test('Lists - isNil', t => {
   t.true(decodeBoolean(isNil(nil)))
   t.false(decodeBoolean(isNil(l123)))
+  t.end()
+})
+
+test('Lists - last', t => {
+  t.equals(decodeNumber(last(l123)), 3)
   t.end()
 })
 

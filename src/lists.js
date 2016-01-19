@@ -1,4 +1,4 @@
-import {C, Y} from 'combinators-js'
+import {C, K, I, Y} from 'combinators-js'
 import {and, False, If, not, True} from './booleans'
 import {first, pair, second} from './pairs'
 import {sub, succ, zero} from './numerals'
@@ -109,6 +109,12 @@ export const filter = f => foldr(acc => val => If(f(val))(cons(val)(acc))(acc))(
 // all(lt(three))(list123) // => False
 // ```
 export const all = f => foldl(a => b => and(a)(f(b)))(True)
+
+// `last` returns the last value in a list
+// ```javascript
+// last(list123) // => three
+// ```
+export const last = foldl(K(I))(nil)
 
 // `length` returns the length of a list
 // ```javascript
