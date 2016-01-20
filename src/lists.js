@@ -4,11 +4,12 @@ import {first, pair, second} from './pairs'
 import {lt} from './predicates'
 import {add, pred, sub, succ, zero} from './numerals'
 
-// Now lists are really cool. There are a few ways to implement them, this is how I've done it
+// Now lists are really cool.
+// There are a few ways to implement them, this is how I've done it
 
 // ## Basics
 
-// `nil` represents the empty node.
+// `nil` represents the end of a list.
 // It's necessary to define this so iterating functions know when to complete.
 // All other nodes will have `False` as the first value in their pair
 export const nil = pair(True)(True)
@@ -119,16 +120,15 @@ export const concat = xs => ys => foldr(C(cons))(ys)(xs)
 
 // `zip` takes two lists and returns a list where each value is a list of the correspondingly indexed values in the input lists. The returned list is the length of the shorter input lists
 // ```javascript
-// zip(list123)(list246) // => list of lists [[1 2] [2 4] [3 6]]
+// zip(list123)(list246)
+// // => list of lists [[1 2] [2 4] [3 6]]
 // ```
-// export const zip = xs => ys => map(x => cons(x)(cons(nth(zero)(ys))(nil)))(If(lt(length(xs))(length(ys)))(xs)(ys))
 export const zip = xs => ys => map(i => cons(nth(i)(xs))(cons(nth(i)(ys))(nil)))(range(zero)(pred(If(lt(length(xs))(length(ys)))(length(xs))(length(ys)))))
 
 // `zipWith` takes a function and two lists and returns a list where each value is the value returned when the values in each of the given lists at the relevant index is applied to the supplied function. The returned list is the length of the shorter input lists
 // ```javascript
 // zipWith(add)(list123)(list246) // => list of [3 6 9]
 // ```
-// export const zip = xs => ys => map(x => cons(x)(cons(nth(zero)(ys))(nil)))(If(lt(length(xs))(length(ys)))(xs)(ys))
 export const zipWith = f => xs => ys => map(i => f(nth(i)(xs))(nth(i)(ys)))(range(zero)(pred(If(lt(length(xs))(length(ys)))(length(xs))(length(ys)))))
 
 // ## Querying lists
