@@ -81,13 +81,6 @@ export const foldr = Y(r => f => a => l => If(isNil(l))(_ => a)(_ => f(r(f)(a)(t
 // ```
 export const append = x => xs => foldr(C(cons))(cons(x)(nil))(xs)
 
-// `concat` takes two lists and joins them together
-// ```javascript
-// concat(list123)(list123)
-// // => list of [one two three one two three]
-// ```
-export const concat = xs => ys => foldr(C(cons))(ys)(xs)
-
 // `prepend` takes a value and a list then returns a list with the value prepended
 // ```javascript
 // prepend(zero)(list123) // => list of [zero one two three]
@@ -181,3 +174,19 @@ export const map = f => foldr(acc => val => cons(f(val))(acc))(nil)
 // reverse(list123) // => list of [three two one]
 // ```
 export const reverse = foldl(C(cons))(nil)
+
+// ## Combining lists
+
+// `concat` takes two lists and joins them together
+// ```javascript
+// concat(list123)(list123)
+// // => list of [one two three one two three]
+// ```
+export const concat = xs => ys => foldr(C(cons))(ys)(xs)
+
+// `zip` zips two lists together. the returned list is the length of the shorter input lists
+// ```javascript
+// zip(list123, list246) // => [[1 2] [2 4] [3 6]]
+// ```
+// export const zip = xs => ys => map(x => cons(x)(cons(nth(zero)(ys))(nil)))(If(lt(length(xs))(length(ys)))(xs)(ys))
+export const zip = xs => ys => map(i => cons(nth(i)(xs))(cons(nth(i)(ys))(nil)))(range(zero)(pred(If(lt(length(xs))(length(ys)))(length(xs))(length(ys)))))

@@ -37,10 +37,12 @@ import {
   ten,
   three,
   two,
-  zero
+  zero,
+  zip
 } from '../src'
 
 const l123 = cons(one)(cons(two)(cons(three)(nil)))
+const l1234 = cons(one)(cons(two)(cons(three)(cons(four)(nil))))
 const l246 = cons(two)(cons(four)(cons(six)(nil)))
 const push = xs => x => (xs.push(x), xs)
 
@@ -194,5 +196,25 @@ test('Lists - take', t => {
 test('Lists - tail', t => {
   t.equal(decodeNumber(head(tail(l123))), 2)
   t.equal(decodeNumber(head(tail(tail(l123)))), 3)
+  t.end()
+})
+
+test('Lists - zip', t => {
+  t.deepEqual(
+    decodeList(zip(l123)(l246)).map(decodeList).map(xs => xs.map(decodeNumber)),
+    [
+      [1, 2],
+      [2, 4],
+      [3, 6]
+    ]
+  )
+  t.deepEqual(
+    decodeList(zip(l1234)(l246)).map(decodeList).map(xs => xs.map(decodeNumber)),
+    [
+      [1, 2],
+      [2, 4],
+      [3, 6]
+    ]
+  )
   t.end()
 })
