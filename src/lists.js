@@ -124,6 +124,13 @@ export const concat = xs => ys => foldr(C(cons))(ys)(xs)
 // export const zip = xs => ys => map(x => cons(x)(cons(nth(zero)(ys))(nil)))(If(lt(length(xs))(length(ys)))(xs)(ys))
 export const zip = xs => ys => map(i => cons(nth(i)(xs))(cons(nth(i)(ys))(nil)))(range(zero)(pred(If(lt(length(xs))(length(ys)))(length(xs))(length(ys)))))
 
+// `zipWith` takes a function and two lists and returns a list where each value is the value returned when the values in each of the given lists at the relevant index is applied to the supplied function. The returned list is the length of the shorter input lists
+// ```javascript
+// zipWith(add)(list123)(list246) // => list of [3 6 9]
+// ```
+// export const zip = xs => ys => map(x => cons(x)(cons(nth(zero)(ys))(nil)))(If(lt(length(xs))(length(ys)))(xs)(ys))
+export const zipWith = f => xs => ys => map(i => f(nth(i)(xs))(nth(i)(ys)))(range(zero)(pred(If(lt(length(xs))(length(ys)))(length(xs))(length(ys)))))
+
 // ## Querying lists
 
 // `all` takes a predicate and a list and returns `True` if every value applied with the predicate returns `True` and returns `False` otherwise

@@ -38,7 +38,8 @@ import {
   three,
   two,
   zero,
-  zip
+  zip,
+  zipWith
 } from '../src'
 
 const l123 = cons(one)(cons(two)(cons(three)(nil)))
@@ -215,6 +216,14 @@ test('Lists - zip', t => {
       [2, 4],
       [3, 6]
     ]
+  )
+  t.end()
+})
+
+test('Lists - zipWith', t => {
+  t.deepEqual(
+    decodeList(zipWith(add)(l123)(l246)).map(decodeNumber),
+    [3, 6, 9]
   )
   t.end()
 })
