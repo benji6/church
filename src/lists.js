@@ -95,18 +95,6 @@ export const prepend = cons
 // ```
 export const drop = n => xs => n(tail)(xs)
 
-// `filter` takes a predicate and a list and returns a list comprised only by those values for which the predicate returns `True`
-// ```javascript
-// filter(lt(two)(list123) // => list of [three]
-// ```
-export const filter = f => foldr(acc => val => If(f(val))(cons(val)(acc))(acc))(nil)
-
-// `reject` takes a predicate and a list and returns a list comprised only by those values for which the predicate returns `False`
-// ```javascript
-// filter(gte(two)(list123) // => list of [three]
-// ```
-export const reject = f => foldr(acc => val => If(f(val))(acc)(cons(val)(acc)))(nil)
-
 // `slice` takes two numerals and returns a new list starting from the first index up to and excluding the second index
 // ```javascript
 // slice(one)(three)(list123) // => list of [two three]
@@ -120,7 +108,23 @@ export const slice = n => m => xs => take(pred(m))(drop(n)(xs))
 // ```
 export const take = n => foldl(acc => val => If(lt(length(acc))(n))(append(val)(acc))(acc))(nil)
 
-// ## Querying a list
+// ## Combining lists
+
+// `concat` takes two lists and joins them together
+// ```javascript
+// concat(list123)(list123)
+// // => list of [one two three one two three]
+// ```
+export const concat = xs => ys => foldr(C(cons))(ys)(xs)
+
+// `zip` takes two lists and returns a list where each value is a list of the correspondingly indexed values in the input lists. The returned list is the length of the shorter input lists
+// ```javascript
+// zip(list123)(list246) // => list of lists [[1 2] [2 4] [3 6]]
+// ```
+// export const zip = xs => ys => map(x => cons(x)(cons(nth(zero)(ys))(nil)))(If(lt(length(xs))(length(ys)))(xs)(ys))
+export const zip = xs => ys => map(i => cons(nth(i)(xs))(cons(nth(i)(ys))(nil)))(range(zero)(pred(If(lt(length(xs))(length(ys)))(length(xs))(length(ys)))))
+
+// ## Querying lists
 
 // `all` takes a predicate and a list and returns `True` if every value applied with the predicate returns `True` and returns `False` otherwise
 // ```javascript
@@ -161,7 +165,13 @@ export const nth = n => B(head)(n(tail))
 // ```
 export const sum = foldl(add)(zero)
 
-// ## Changing lists
+// ## Transforming lists
+
+// `filter` takes a predicate and a list and returns a list comprised only by those values for which the predicate returns `True`
+// ```javascript
+// filter(lt(two)(list123) // => list of [three]
+// ```
+export const filter = f => foldr(acc => val => If(f(val))(cons(val)(acc))(acc))(nil)
 
 // `map` takes a function and a list and returns a new list with the function applied to every function in the given list
 // ```javascript
@@ -175,18 +185,8 @@ export const map = f => foldr(acc => val => cons(f(val))(acc))(nil)
 // ```
 export const reverse = foldl(C(cons))(nil)
 
-// ## Combining lists
-
-// `concat` takes two lists and joins them together
+// `reject` takes a predicate and a list and returns a list comprised only by those values for which the predicate returns `False`
 // ```javascript
-// concat(list123)(list123)
-// // => list of [one two three one two three]
+// reject(gte(two)(list123) // => list of [three]
 // ```
-export const concat = xs => ys => foldr(C(cons))(ys)(xs)
-
-// `zip` zips two lists together. the returned list is the length of the shorter input lists
-// ```javascript
-// zip(list123, list246) // => [[1 2] [2 4] [3 6]]
-// ```
-// export const zip = xs => ys => map(x => cons(x)(cons(nth(zero)(ys))(nil)))(If(lt(length(xs))(length(ys)))(xs)(ys))
-export const zip = xs => ys => map(i => cons(nth(i)(xs))(cons(nth(i)(ys))(nil)))(range(zero)(pred(If(lt(length(xs))(length(ys)))(length(xs))(length(ys)))))
+export const reject = f => foldr(acc => val => If(f(val))(acc)(cons(val)(acc)))(nil)
