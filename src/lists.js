@@ -1,7 +1,8 @@
 import {B, C, K, I, Y} from 'combinators-js'
 import {and, False, If, not, True} from './booleans'
 import {first, pair, second} from './pairs'
-import {sub, succ, zero} from './numerals'
+import {lt} from './predicates'
+import {pred, sub, succ, zero} from './numerals'
 
 // Now lists are really cool. There are a few ways to implement them, this is how I've done it
 
@@ -112,6 +113,19 @@ export const filter = f => foldr(acc => val => If(f(val))(cons(val)(acc))(acc))(
 // filter(gte(two)(list123) // => list of [three]
 // ```
 export const reject = f => foldr(acc => val => If(f(val))(acc)(cons(val)(acc)))(nil)
+
+// `slice` takes two numerals and returns a new list starting from the first index up to and excluding the second index
+// ```javascript
+// slice(one)(three)(list123) // => list of [two three]
+// slice(one)(two)(list123) // => list of [two]
+// ```
+export const slice = n => m => xs => take(pred(m))(drop(n)(xs))
+
+// `take` takes a numeral n and a list and returns a new list of only the first n values
+// ```javascript
+// take(two)(list123) // => list of [one two]
+// ```
+export const take = n => foldl(acc => val => If(lt(length(acc))(n))(append(val)(acc))(acc))(nil)
 
 // ## Querying a list
 

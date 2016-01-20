@@ -30,7 +30,9 @@ import {
   repeat,
   reverse,
   six,
+  slice,
   tail,
+  take,
   ten,
   three,
   two,
@@ -166,6 +168,19 @@ test('Lists - repeat', t => {
 
 test('Lists - reverse', t => {
   t.deepEqual(decodeList(reverse(l123)).map(decodeNumber), [3, 2, 1])
+  t.end()
+})
+
+test('Lists - slice', t => {
+  t.deepEqual(decodeList(slice(one)(two)(l123)).map(decodeNumber), [2])
+  t.deepEqual(decodeList(slice(one)(three)(l123)).map(decodeNumber), [2, 3])
+  t.end()
+})
+
+test('Lists - take', t => {
+  t.deepEqual(decodeList(take(one)(l123)).map(decodeNumber), [1])
+  t.deepEqual(decodeList(take(two)(l123)).map(decodeNumber), [1, 2])
+  t.deepEqual(decodeList(take(three)(l123)).map(decodeNumber), [1, 2, 3])
   t.end()
 })
 
