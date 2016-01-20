@@ -2,7 +2,7 @@ import {B, C, K, I, Y} from 'combinators-js'
 import {and, False, If, not, True} from './booleans'
 import {first, pair, second} from './pairs'
 import {lt} from './predicates'
-import {pred, sub, succ, zero} from './numerals'
+import {add, pred, sub, succ, zero} from './numerals'
 
 // Now lists are really cool. There are a few ways to implement them, this is how I've done it
 
@@ -161,6 +161,12 @@ export const none = f => xs => not(all(f)(xs))
 // nth(two)(list123) // => three
 // ```
 export const nth = n => B(head)(n(tail))
+
+// `sum` takes a list of numerals and sums it
+// ```javascript
+// sum(list123) // => six
+// ```
+export const sum = foldl(add)(zero)
 
 // ## Changing lists
 

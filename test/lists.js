@@ -31,6 +31,7 @@ import {
   reverse,
   six,
   slice,
+  sum,
   tail,
   take,
   ten,
@@ -174,6 +175,12 @@ test('Lists - reverse', t => {
 test('Lists - slice', t => {
   t.deepEqual(decodeList(slice(one)(two)(l123)).map(decodeNumber), [2])
   t.deepEqual(decodeList(slice(one)(three)(l123)).map(decodeNumber), [2, 3])
+  t.end()
+})
+
+test('Lists - sum', t => {
+  t.deepEqual(decodeNumber(sum(l123)), 6)
+  t.deepEqual(decodeNumber(sum(l246)), 12)
   t.end()
 })
 
