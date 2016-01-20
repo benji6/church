@@ -15,48 +15,48 @@ import {
 } from '../src'
 
 test('Predicates - isZero', t => {
-  t.equal(decodeBoolean(isZero(zero)), true)
-  t.equal(decodeBoolean(isZero(one)), false)
-  t.equal(decodeBoolean(isZero(two)), false)
-  t.equal(decodeBoolean(isZero(three)), false)
+  t.true(decodeBoolean(isZero(zero)))
+  t.false(decodeBoolean(isZero(one)))
+  t.false(decodeBoolean(isZero(two)))
+  t.false(decodeBoolean(isZero(three)))
   t.end()
 })
 
 test('Predicates - lte', t => {
-  t.equal(decodeBoolean(lte(two)(three)), true)
-  t.equal(decodeBoolean(lte(three)(three)), true)
-  t.equal(decodeBoolean(lte(zero)(zero)), true)
-  t.equal(decodeBoolean(lte(four)(three)), false)
+  t.true(decodeBoolean(lte(two)(three)))
+  t.true(decodeBoolean(lte(three)(three)))
+  t.true(decodeBoolean(lte(zero)(zero)))
+  t.false(decodeBoolean(lte(four)(three)))
   t.end()
 })
 
 test('Predicates - gte', t => {
-  t.equal(decodeBoolean(gte(two)(three)), false)
-  t.equal(decodeBoolean(gte(three)(three)), true)
-  t.equal(decodeBoolean(gte(zero)(zero)), true)
-  t.equal(decodeBoolean(gte(four)(three)), true)
+  t.false(decodeBoolean(gte(two)(three)))
+  t.true(decodeBoolean(gte(three)(three)))
+  t.true(decodeBoolean(gte(zero)(zero)))
+  t.true(decodeBoolean(gte(four)(three)))
   t.end()
 })
 
 test('Predicates - lt', t => {
-  t.equal(decodeBoolean(lt(two)(three)), true)
-  t.equal(decodeBoolean(lt(three)(three)), false)
-  t.equal(decodeBoolean(lt(zero)(zero)), false)
-  t.equal(decodeBoolean(lt(four)(three)), false)
+  t.true(decodeBoolean(lt(two)(three)))
+  t.false(decodeBoolean(lt(three)(three)))
+  t.false(decodeBoolean(lt(zero)(zero)))
+  t.false(decodeBoolean(lt(four)(three)))
   t.end()
 })
 
 test('Predicates - gt', t => {
-  t.equal(decodeBoolean(gt(two)(three)), false)
-  t.equal(decodeBoolean(gt(three)(three)), false)
-  t.equal(decodeBoolean(gt(zero)(zero)), false)
-  t.equal(decodeBoolean(gt(four)(three)), true)
+  t.false(decodeBoolean(gt(two)(three)))
+  t.false(decodeBoolean(gt(three)(three)))
+  t.false(decodeBoolean(gt(zero)(zero)))
+  t.true(decodeBoolean(gt(four)(three)))
   t.end()
 })
 
 test('Predicates - eq', t => {
-  t.equal(decodeBoolean(eq(two)(three)), false)
-  t.equal(decodeBoolean(eq(three)(three)), true)
-  t.equal(decodeBoolean(eq(four)(three)), false)
+  t.false(decodeBoolean(eq(two)(three)))
+  t.true(decodeBoolean(eq(three)(three)))
+  t.false(decodeBoolean(eq(four)(three)))
   t.end()
 })

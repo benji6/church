@@ -6,12 +6,14 @@ import {I, K, T, V} from 'combinators-js'
 // // => pair('first value')('second value')
 // ```
 export const pair = V
+
 // when a pair is applied with `first` the first value in the pair is returned
 // ```javascript
 // pair('first value')('second value')(first)
 // // => 'first value'
 // ```
 export const first = T(K)
+
 // when a pair is applied with `second` the first value in the pair is returned
 // ```javascript
 // pair('first value')('second value')(second)
