@@ -22,9 +22,12 @@ Check out the [docs](http://benji6.github.io/church/docs/).
 `npm i church`
 
 ```javascript
-import {and, True, False} from 'church'
+import {five, If, lt, map, mult, one, range, three, two} from 'church'
+const twoFourSix = map(mult(two))(range(one)(three))
+// => church encoded list of [two four six]
 
-and(True)(False) // => False
+map(x => If(lt(x)(five))(five)(x))(twoFourSix)
+// => church encoded list of [five five six]
 ```
 
 The code is written in ES2015 and transpiled to ES5. You can consume the ES2015 source directly using [Rollup](https://github.com/rollup/rollup).
