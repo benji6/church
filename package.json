@@ -56,9 +56,6 @@
     "standard": "^7.1.0",
     "tape": "^4.4.0"
   },
-  "dependencies": {
-    "combinators-js": "^2.2.1"
-  },
   "standard": {
     "parser": "babel-eslint",
     "ignore": [

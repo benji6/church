@@ -1,46 +1,45 @@
-// Check out my [combinators-js](https://github.com/benji6/combinators-js) library for definitions of these functions.
-// A [combinator](https://en.wikipedia.org/wiki/Combinatory_logic) is just a higher order function that uses only function application and earlier defined combinators to define a result from its arguments. Don't worry about the theory surrounding them, you only need to be able to read the definitions to understand this code. The reason I'm importing them is because they are highly useful and reusable when defining the functions in this library.
-import {C, K, H, I, I__, M} from 'combinators-js'
+// Check out my [combinators-js](https://github.com/benji6/combinators-js) library if you are interested in combinatory logic.
+// A [combinator](https://en.wikipedia.org/wiki/Combinatory_logic) is just a higher order function that uses only function application and earlier defined combinators to define a result from its arguments. Most of the functions declared here can be defined very simply in terms of combinators.
 
-// `True` takes 2 arguments and returns the first
+// `True` takes 2 arguments and returns the first. This is the K combinator
 // ```javascript
 // True('first')('second') // => 'first'`
 // ```
-export const True = K
+export const True = a => _ => a
 
-// `False` takes 2 arguments and returns the second
+// `False` takes 2 arguments and returns the second. This is the KI combinator
 // ```javascript
 // False('first')('second') // => 'second'
 // ```
-export const False = K(I)
+export const False = _ => a => a
 
-// `If` takes a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False
+// `If` takes a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False. This is the I** combinator
 // ```javascript
 // If(True)('then')('else') // => 'then'
 // If(False)('then')('else') // => 'else'
 // ```
-export const If = I__
+export const If = a => b => c => a(b)(c)
 
 // Standard 'and'
 // ```javascript
 // and(True)(True) // => True
 // and(True)(False) // => False
 // ```
-export const and = H(I)
+export const and = a => b => a(b)(a)
 
 // Standard 'or'
 // ```javascript
 // or(True)(False) // => True
 // or(False)(False) // => False
 // ```
-export const or = I__(M)
+export const or = a => b => a(a)(b)
 
-// Standard 'not'
+// Standard 'not'. This is the C combinator
 // ```javascript
 // not(False) // => True
 // not(True) // => False
 // ```
-export const not = C
+export const not = a => b => c => a(c)(b)
 
 // Standard 'xor'
 // ```javascript
