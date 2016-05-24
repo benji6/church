@@ -45,7 +45,10 @@ import {
 const l123 = cons(one)(cons(two)(cons(three)(nil)))
 const l1234 = cons(one)(cons(two)(cons(three)(cons(four)(nil))))
 const l246 = cons(two)(cons(four)(cons(six)(nil)))
-const push = xs => x => (xs.push(x), xs)
+const push = xs => x => {
+  xs.push(x)
+  return xs
+}
 
 test('Lists - all', t => {
   t.true(decodeBoolean(all(gt(ten))(l123)))
