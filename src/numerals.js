@@ -1,5 +1,3 @@
-import {B, I, I_, K, Q4, T, V} from 'combinators-js'
-
 // This is how numerals are encoded. They take a function and a value then apply that function to the value or the previous result of application n times where n is the number being encoded. In JavaScript we can decode numerals simply like this:
 // ```javascript
 // const decodeNumber = a => a(b => b + 1)(0)
@@ -9,8 +7,10 @@ import {B, I, I_, K, Q4, T, V} from 'combinators-js'
 // decodeNumber(three) // => 3
 // ```
 
-export const zero = K(I)
-export const one = I_
+// zero is the KI combinator just like False - not very type safe!
+export const zero = _ => x => x
+// and one is the I* combinator
+export const one = f => x => f(x)
 export const two = f => x => f(f(x))
 export const three = f => x => f(f(f(x)))
 export const four = f => x => f(f(f(f(x))))
@@ -34,7 +34,7 @@ export const succ = a => b => c => a(b)(b(c))
 // pred(four) // => three
 // pred(zero) // => zero
 // ```
-export const pred = a => b => c => a(Q4(b))(K(c))(I)
+export const pred = a => b => c => a(d => e => e(d(b)))(_ => c)(a => a)
 
 // `add` takes two numerals and returns their sum
 // ```javascript
@@ -49,18 +49,18 @@ export const add = a => b => c => d => b(c)(a(c)(d))
 // sub(three)(three) // => zero
 // sub(three)(four) // => zero
 // ```
-export const sub = V(pred)
+export const sub = a => b => b(pred)(a)
 
-// `mult` takes two numerals and returns their product
+// `mult` takes two numerals and returns their product. This is the B combinator
 // ```javascript
 // mult(two)(five) // => ten
 // ```
-export const mult = B
+export const mult = a => b => c => a(b(c))
 
-// `exp` takes two numerals and returns the first to the power of the second
+// `exp` takes two numerals and returns the first to the power of the second. This is the T combinator
 // ```javascript
 // exp(ten)(zero) // => one
 // exp(two)(two) // => four
 // exp(three)(two) // => nine
 // ```
-export const exp = T
+export const exp = a => b => b(a)

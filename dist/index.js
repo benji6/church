@@ -1,51 +1,78 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.reject = exports.reverse = exports.map = exports.filter = exports.sum = exports.nth = exports.none = exports.length = exports.last = exports.all = exports.zipWith = exports.zip = exports.concat = exports.take = exports.slice = exports.drop = exports.prepend = exports.append = exports.foldr = exports.foldl = exports.repeat = exports.range = exports.tail = exports.head = exports.cons = exports.isNil = exports.nil = exports.second = exports.first = exports.pair = exports.eq = exports.gt = exports.lt = exports.gte = exports.lte = exports.isZero = exports.exp = exports.mult = exports.sub = exports.add = exports.pred = exports.succ = exports.ten = exports.nine = exports.eight = exports.seven = exports.six = exports.five = exports.four = exports.three = exports.two = exports.one = exports.zero = exports.xor = exports.not = exports.or = exports.and = exports.If = exports.False = exports.True = undefined;
+// Check out my [combinators-js](https://github.com/benji6/combinators-js) library if you are interested in combinatory logic.
+// A [combinator](https://en.wikipedia.org/wiki/Combinatory_logic) is just a higher order function that uses only function application and earlier defined combinators to define a result from its arguments. Most of the functions declared here can be defined very simply in terms of combinators.
 
-var _combinatorsJs = require('combinators-js');
-
-// `True` takes 2 arguments and returns the first
+// `True` takes 2 arguments and returns the first. This is the K combinator
 // ```javascript
 // True('first')('second') // => 'first'`
 // ```
-var True = _combinatorsJs.K;
+var True = function True(a) {
+  return function (_) {
+    return a;
+  };
+};
 
-// `False` takes 2 arguments and returns the second
+// `False` takes 2 arguments and returns the second. This is the KI combinator
 // ```javascript
 // False('first')('second') // => 'second'
 // ```
-var False = (0, _combinatorsJs.K)(_combinatorsJs.I);
+var False = function False(_) {
+  return function (a) {
+    return a;
+  };
+};
 
-// `If` takes a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False
+// `If` takes a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False. This is the I** combinator
 // ```javascript
 // If(True)('then')('else') // => 'then'
 // If(False)('then')('else') // => 'else'
 // ```
-var If = _combinatorsJs.I__;
+var If = function If(a) {
+  return function (b) {
+    return function (c) {
+      return a(b)(c);
+    };
+  };
+};
 
 // Standard 'and'
 // ```javascript
 // and(True)(True) // => True
 // and(True)(False) // => False
 // ```
-var and = (0, _combinatorsJs.H)(_combinatorsJs.I);
+var and = function and(a) {
+  return function (b) {
+    return a(b)(a);
+  };
+};
 
 // Standard 'or'
 // ```javascript
 // or(True)(False) // => True
 // or(False)(False) // => False
 // ```
-var or = (0, _combinatorsJs.I__)(_combinatorsJs.M);
+var or = function or(a) {
+  return function (b) {
+    return a(a)(b);
+  };
+};
 
-// Standard 'not'
+// Standard 'not'. This is the C combinator
 // ```javascript
 // not(False) // => True
 // not(True) // => False
 // ```
-var not = _combinatorsJs.C;
+var not = function not(a) {
+  return function (b) {
+    return function (c) {
+      return a(c)(b);
+    };
+  };
+};
 
 // Standard 'xor'
 // ```javascript
@@ -71,8 +98,18 @@ var xor = function xor(a) {
 // decodeNumber(three) // => 3
 // ```
 
-var zero = (0, _combinatorsJs.K)(_combinatorsJs.I);
-var one = _combinatorsJs.I_;
+// zero is the KI combinator just like False - not very type safe!
+var zero = function zero(_) {
+  return function (x) {
+    return x;
+  };
+};
+// and one is the I* combinator
+var one = function one(f) {
+  return function (x) {
+    return f(x);
+  };
+};
 var two = function two(f) {
   return function (x) {
     return f(f(x));
@@ -141,7 +178,15 @@ var succ = function succ(a) {
 var pred = function pred(a) {
   return function (b) {
     return function (c) {
-      return a((0, _combinatorsJs.Q4)(b))((0, _combinatorsJs.K)(c))(_combinatorsJs.I);
+      return a(function (d) {
+        return function (e) {
+          return e(d(b));
+        };
+      })(function (_) {
+        return c;
+      })(function (a) {
+        return a;
+      });
     };
   };
 };
@@ -167,28 +212,46 @@ var add = function add(a) {
 // sub(three)(three) // => zero
 // sub(three)(four) // => zero
 // ```
-var sub = (0, _combinatorsJs.V)(pred);
+var sub = function sub(a) {
+  return function (b) {
+    return b(pred)(a);
+  };
+};
 
-// `mult` takes two numerals and returns their product
+// `mult` takes two numerals and returns their product. This is the B combinator
 // ```javascript
 // mult(two)(five) // => ten
 // ```
-var mult = _combinatorsJs.B;
+var mult = function mult(a) {
+  return function (b) {
+    return function (c) {
+      return a(b(c));
+    };
+  };
+};
 
-// `exp` takes two numerals and returns the first to the power of the second
+// `exp` takes two numerals and returns the first to the power of the second. This is the T combinator
 // ```javascript
 // exp(ten)(zero) // => one
 // exp(two)(two) // => four
 // exp(three)(two) // => nine
 // ```
-var exp = _combinatorsJs.T;
+var exp = function exp(a) {
+  return function (b) {
+    return b(a);
+  };
+};
 
 // `isZero` takes a value and returns Church encoded `True` if it is a Church encoded `zero` and `False` otherwise
 // ```javascript
 // isZero(zero) // => True
 // isZero(one) // => False
 // ```
-var isZero = (0, _combinatorsJs.V)((0, _combinatorsJs.K)(False))(True);
+var isZero = function isZero(a) {
+  return a(function (_) {
+    return False;
+  })(True);
+};
 
 // `lte` takes two numerals and returns True if the first is less than or equal to the first and False otherwise
 // ```javascript
@@ -249,26 +312,44 @@ var eq = function eq(a) {
   };
 };
 
-// `pair` takes two values which are effectively stored as a two-tuple that can then be accessed by `first` and `second` detailed below
+// `pair` takes two values which are effectively stored as a two-tuple that can then be accessed by `first` and `second` detailed below. This is the V combinator
 // ```javascript
 // pair('first value')('second value')
 // // => pair('first value')('second value')
 // ```
-var pair = _combinatorsJs.V;
+var pair = function pair(a) {
+  return function (b) {
+    return function (c) {
+      return c(a)(b);
+    };
+  };
+};
 
-// when a pair is applied with `first` the first value in the pair is returned
+// when a pair is applied with `first` the first value in the pair is returned. This is TK in combinatory logic
 // ```javascript
 // pair('first value')('second value')(first)
 // // => 'first value'
 // ```
-var first = (0, _combinatorsJs.T)(_combinatorsJs.K);
+var first = function first(a) {
+  return a(function (b) {
+    return function (_) {
+      return b;
+    };
+  });
+};
 
-// when a pair is applied with `second` the first value in the pair is returned
+// when a pair is applied with `second` the first value in the pair is returned. This is TKI in combinatory logic
 // ```javascript
 // pair('first value')('second value')(second)
 // // => 'second value'
 // ```
-var second = (0, _combinatorsJs.T)((0, _combinatorsJs.K)(_combinatorsJs.I));
+var second = function second(a) {
+  return a(function (_) {
+    return function (b) {
+      return b;
+    };
+  });
+};
 
 // Now lists are really cool.
 // There are a few ways to implement them, this is how I've done it
@@ -348,11 +429,22 @@ var repeat = function repeat(a) {
 
 // When you can fold you can derive all sorts of useful functions as we shall see shortly
 
+// This is the Y combinator which we use to recursively call lambda exressions in our definitions below
+var Y = function Y(a) {
+  return function (b) {
+    return b(b);
+  }(function (b) {
+    return a(function (c) {
+      return b(b)(c);
+    });
+  });
+};
+
 // `foldl` takes a reducing function, an initial value and a list. It then iterates over the list from left to right (assuming the list is ordered left to right) applying the reducing funcion to the initial value / result of previous reducing function and the current value in the list.
 // ```javascript
 // foldl(sum)(zero)(list123) // => six
 // ```
-var foldl = (0, _combinatorsJs.Y)(function (r) {
+var foldl = Y(function (r) {
   return function (f) {
     return function (a) {
       return function (l) {
@@ -370,7 +462,7 @@ var foldl = (0, _combinatorsJs.Y)(function (r) {
 // ```javascript
 // foldl(sum)(zero)(list123) // => six
 // ```
-var foldr = (0, _combinatorsJs.Y)(function (r) {
+var foldr = Y(function (r) {
   return function (f) {
     return function (a) {
       return function (l) {
@@ -392,7 +484,11 @@ var foldr = (0, _combinatorsJs.Y)(function (r) {
 // ```
 var append = function append(x) {
   return function (xs) {
-    return foldr((0, _combinatorsJs.C)(cons))(cons(x)(nil))(xs);
+    return foldr(function (a) {
+      return function (b) {
+        return cons(b)(a);
+      };
+    })(cons(x)(nil))(xs);
   };
 };
 
@@ -448,7 +544,11 @@ var take = function take(n) {
 // ```
 var concat = function concat(xs) {
   return function (ys) {
-    return foldr((0, _combinatorsJs.C)(cons))(ys)(xs);
+    return foldr(function (a) {
+      return function (b) {
+        return cons(b)(a);
+      };
+    })(ys)(xs);
   };
 };
 
@@ -498,7 +598,11 @@ var all = function all(f) {
 // ```javascript
 // last(list123) // => three
 // ```
-var last = foldl((0, _combinatorsJs.K)(_combinatorsJs.I))(nil);
+var last = foldl(function (a) {
+  return function (b) {
+    return b;
+  };
+})(nil);
 
 // `length` returns the length of a list
 // ```javascript
@@ -527,7 +631,9 @@ var none = function none(f) {
 // nth(two)(list123) // => three
 // ```
 var nth = function nth(n) {
-  return (0, _combinatorsJs.B)(head)(n(tail));
+  return function (xs) {
+    return head(n(tail)(xs));
+  };
 };
 
 // `sum` takes a list of numerals and sums it
@@ -566,7 +672,11 @@ var map = function map(f) {
 // ```javascript
 // reverse(list123) // => list of [three two one]
 // ```
-var reverse = foldl((0, _combinatorsJs.C)(cons))(nil);
+var reverse = foldl(function (a) {
+  return function (b) {
+    return cons(b)(a);
+  };
+})(nil);
 
 // `reject` takes a predicate and a list and returns a list comprised only by those values for which the predicate returns `False`
 // ```javascript
