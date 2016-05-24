@@ -70,12 +70,10 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>Check out my <a href="https://github.com/benji6/combinators-js">combinators-js</a> library for definitions of these functions.
-A <a href="https://en.wikipedia.org/wiki/Combinatory_logic">combinator</a> is just a higher order function that uses only function application and earlier defined combinators to define a result from its arguments. Don’t worry about the theory surrounding them, you only need to be able to read the definitions to understand this code. The reason I’m importing them is because they are highly useful and reusable when defining the functions in this library.</p>
+              <p>Check out my <a href="https://github.com/benji6/combinators-js">combinators-js</a> library if you are interested in combinatory logic.
+A <a href="https://en.wikipedia.org/wiki/Combinatory_logic">combinator</a> is just a higher order function that uses only function application and earlier defined combinators to define a result from its arguments. Most of the functions declared here can be defined very simply in terms of combinators.</p>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {C, K, H, I, I__, M} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span></pre></div></div>
             
         </li>
         
@@ -86,13 +84,13 @@ A <a href="https://en.wikipedia.org/wiki/Combinatory_logic">combinator</a> is ju
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p><code>True</code> takes 2 arguments and returns the first</p>
+              <p><code>True</code> takes 2 arguments and returns the first. This is the K combinator</p>
 <pre><code class="lang-javascript">True(<span class="hljs-string">'first'</span>)(<span class="hljs-string">'second'</span>) <span class="hljs-comment">// =&gt; 'first'`</span>
 </code></pre>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> True = K</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> True = a =&gt; _ =&gt; a</pre></div></div>
             
         </li>
         
@@ -103,13 +101,13 @@ A <a href="https://en.wikipedia.org/wiki/Combinatory_logic">combinator</a> is ju
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p><code>False</code> takes 2 arguments and returns the second</p>
+              <p><code>False</code> takes 2 arguments and returns the second. This is the KI combinator</p>
 <pre><code class="lang-javascript">False(<span class="hljs-string">'first'</span>)(<span class="hljs-string">'second'</span>) <span class="hljs-comment">// =&gt; 'second'</span>
 </code></pre>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> False = K(I)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> False = _ =&gt; a =&gt; a</pre></div></div>
             
         </li>
         
@@ -120,14 +118,14 @@ A <a href="https://en.wikipedia.org/wiki/Combinatory_logic">combinator</a> is ju
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p><code>If</code> takes a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False</p>
+              <p><code>If</code> takes a predicate and two values, returning the first value if the predicate is True and the second if the predicate is False. This is the I** combinator</p>
 <pre><code class="lang-javascript">If(True)(<span class="hljs-string">'then'</span>)(<span class="hljs-string">'else'</span>) <span class="hljs-comment">// =&gt; 'then'</span>
 If(False)(<span class="hljs-string">'then'</span>)(<span class="hljs-string">'else'</span>) <span class="hljs-comment">// =&gt; 'else'</span>
 </code></pre>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> If = I__</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> If = a =&gt; b =&gt; c =&gt; a(b)(c)</pre></div></div>
             
         </li>
         
@@ -145,7 +143,7 @@ and(True)(False) <span class="hljs-comment">// =&gt; False</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> and = H(I)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> and = a =&gt; b =&gt; a(b)(a)</pre></div></div>
             
         </li>
         
@@ -163,7 +161,7 @@ or(False)(False) <span class="hljs-comment">// =&gt; False</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> or = I__(M)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> or = a =&gt; b =&gt; a(a)(b)</pre></div></div>
             
         </li>
         
@@ -174,14 +172,14 @@ or(False)(False) <span class="hljs-comment">// =&gt; False</span>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Standard ‘not’</p>
+              <p>Standard ‘not’. This is the C combinator</p>
 <pre><code class="lang-javascript">not(False) <span class="hljs-comment">// =&gt; True</span>
 not(True) <span class="hljs-comment">// =&gt; False</span>
 </code></pre>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> not = C</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> not = a =&gt; b =&gt; c =&gt; a(c)(b)</pre></div></div>
             
         </li>
         

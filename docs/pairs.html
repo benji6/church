@@ -70,10 +70,14 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p><code>pair</code> takes two values which are effectively stored as a two-tuple that can then be accessed by <code>first</code> and <code>second</code> detailed below. This is the V combinator</p>
+<pre><code class="lang-javascript">pair(<span class="hljs-string">'first value'</span>)(<span class="hljs-string">'second value'</span>)
+<span class="hljs-comment">// =&gt; pair('first value')('second value')</span>
+</code></pre>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {I, K, T, V} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> pair = a =&gt; b =&gt; c =&gt; c(a)(b)</pre></div></div>
             
         </li>
         
@@ -84,14 +88,14 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p><code>pair</code> takes two values which are effectively stored as a two-tuple that can then be accessed by <code>first</code> and <code>second</code> detailed below</p>
-<pre><code class="lang-javascript">pair(<span class="hljs-string">'first value'</span>)(<span class="hljs-string">'second value'</span>)
-<span class="hljs-comment">// =&gt; pair('first value')('second value')</span>
+              <p>when a pair is applied with <code>first</code> the first value in the pair is returned. This is TK in combinatory logic</p>
+<pre><code class="lang-javascript">pair(<span class="hljs-string">'first value'</span>)(<span class="hljs-string">'second value'</span>)(first)
+<span class="hljs-comment">// =&gt; 'first value'</span>
 </code></pre>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> pair = V</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> first = a =&gt; a(b =&gt; _ =&gt; b)</pre></div></div>
             
         </li>
         
@@ -102,32 +106,14 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>when a pair is applied with <code>first</code> the first value in the pair is returned</p>
-<pre><code class="lang-javascript">pair(<span class="hljs-string">'first value'</span>)(<span class="hljs-string">'second value'</span>)(first)
-<span class="hljs-comment">// =&gt; 'first value'</span>
-</code></pre>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> first = T(K)</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-4">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>when a pair is applied with <code>second</code> the first value in the pair is returned</p>
+              <p>when a pair is applied with <code>second</code> the first value in the pair is returned. This is TKI in combinatory logic</p>
 <pre><code class="lang-javascript">pair(<span class="hljs-string">'first value'</span>)(<span class="hljs-string">'second value'</span>)(second)
 <span class="hljs-comment">// =&gt; 'second value'</span>
 </code></pre>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> second = T(K(I))</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> second = a =&gt; a(_ =&gt; b =&gt; b)</pre></div></div>
             
         </li>
         

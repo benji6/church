@@ -73,8 +73,7 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {B, C, K, I, Y} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span>
-<span class="hljs-keyword">import</span> {and, False, If, not, True} <span class="hljs-keyword">from</span> <span class="hljs-string">'./booleans'</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {and, False, If, not, True} <span class="hljs-keyword">from</span> <span class="hljs-string">'./booleans'</span>
 <span class="hljs-keyword">import</span> {first, pair, second} <span class="hljs-keyword">from</span> <span class="hljs-string">'./pairs'</span>
 <span class="hljs-keyword">import</span> {lt} <span class="hljs-keyword">from</span> <span class="hljs-string">'./predicates'</span>
 <span class="hljs-keyword">import</span> {add, pred, sub, succ, zero} <span class="hljs-keyword">from</span> <span class="hljs-string">'./numerals'</span></pre></div></div>
@@ -290,6 +289,21 @@ repeat(True)(four) <span class="hljs-comment">// =&gt; list of [True True True T
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
+              <p>This is the Y combinator which we use to recursively call lambda exressions in our definitions below</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> Y = a =&gt; (b =&gt; b(b))(b =&gt; a(c =&gt; b(b)(c)))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
               <p><code>foldl</code> takes a reducing function, an initial value and a list. It then iterates over the list from left to right (assuming the list is ordered left to right) applying the reducing funcion to the initial value / result of previous reducing function and the current value in the list.</p>
 <pre><code class="lang-javascript">foldl(sum)(zero)(list123) <span class="hljs-comment">// =&gt; six</span>
 </code></pre>
@@ -301,11 +315,11 @@ repeat(True)(four) <span class="hljs-comment">// =&gt; list of [True True True T
         </li>
         
         
-        <li id="section-16">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p><code>foldr</code> behaves the same as foldl except it iterates across the list in reverse order</p>
 <pre><code class="lang-javascript">foldl(sum)(zero)(list123) <span class="hljs-comment">// =&gt; six</span>
@@ -318,32 +332,15 @@ repeat(True)(four) <span class="hljs-comment">// =&gt; list of [True True True T
         </li>
         
         
-        <li id="section-17">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
-              </div>
-              <h2 id="growing-a-list">Growing a list</h2>
-
-            </div>
-            
-        </li>
-        
-        
         <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
-              <p><code>append</code> takes a value and a list then returns a list with the value appended</p>
-<pre><code class="lang-javascript">append(four)(list123) <span class="hljs-comment">// =&gt; list of [one two three four]</span>
-</code></pre>
+              <h2 id="growing-a-list">Growing a list</h2>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> append = x =&gt; xs =&gt; foldr(C(cons))(cons(x)(nil))(xs)</pre></div></div>
             
         </li>
         
@@ -353,6 +350,23 @@ repeat(True)(four) <span class="hljs-comment">// =&gt; list of [True True True T
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p><code>append</code> takes a value and a list then returns a list with the value appended</p>
+<pre><code class="lang-javascript">append(four)(list123) <span class="hljs-comment">// =&gt; list of [one two three four]</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> append = x =&gt; xs =&gt; foldr(a =&gt; b =&gt; cons(b)(a))(cons(x)(nil))(xs)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <p><code>prepend</code> takes a value and a list then returns a list with the value prepended</p>
 <pre><code class="lang-javascript">prepend(zero)(list123) <span class="hljs-comment">// =&gt; list of [zero one two three]</span>
@@ -365,11 +379,11 @@ repeat(True)(four) <span class="hljs-comment">// =&gt; list of [True True True T
         </li>
         
         
-        <li id="section-20">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <h2 id="shrinking-a-list">Shrinking a list</h2>
 
@@ -378,11 +392,11 @@ repeat(True)(four) <span class="hljs-comment">// =&gt; list of [True True True T
         </li>
         
         
-        <li id="section-21">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <p><code>drop</code> takes a numeral n and a list and returns a new list with all but the first n values</p>
 <pre><code class="lang-javascript">drop(two)(list123) <span class="hljs-comment">// =&gt; list of [three]</span>
@@ -395,11 +409,11 @@ repeat(True)(four) <span class="hljs-comment">// =&gt; list of [True True True T
         </li>
         
         
-        <li id="section-22">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p><code>slice</code> takes two numerals and returns a new list starting from the first index up to and excluding the second index</p>
 <pre><code class="lang-javascript">slice(one)(three)(list123) <span class="hljs-comment">// =&gt; list of [two three]</span>
@@ -413,11 +427,11 @@ slice(one)(two)(list123) <span class="hljs-comment">// =&gt; list of [two]</span
         </li>
         
         
-        <li id="section-23">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <p><code>take</code> takes a numeral n and a list and returns a new list of only the first n values</p>
 <pre><code class="lang-javascript">take(two)(list123) <span class="hljs-comment">// =&gt; list of [one two]</span>
@@ -430,33 +444,15 @@ slice(one)(two)(list123) <span class="hljs-comment">// =&gt; list of [two]</span
         </li>
         
         
-        <li id="section-24">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-24">&#182;</a>
-              </div>
-              <h2 id="combining-lists">Combining lists</h2>
-
-            </div>
-            
-        </li>
-        
-        
         <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
-              <p><code>concat</code> takes two lists and joins them together</p>
-<pre><code class="lang-javascript">concat(list123)(list123)
-<span class="hljs-comment">// =&gt; list of [one two three one two three]</span>
-</code></pre>
+              <h2 id="combining-lists">Combining lists</h2>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> concat = xs =&gt; ys =&gt; foldr(C(cons))(ys)(xs)</pre></div></div>
             
         </li>
         
@@ -466,6 +462,24 @@ slice(one)(two)(list123) <span class="hljs-comment">// =&gt; list of [two]</span
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p><code>concat</code> takes two lists and joins them together</p>
+<pre><code class="lang-javascript">concat(list123)(list123)
+<span class="hljs-comment">// =&gt; list of [one two three one two three]</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> concat = xs =&gt; ys =&gt; foldr(a =&gt; b =&gt; cons(b)(a))(ys)(xs)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <p><code>zip</code> takes two lists and returns a list where each value is a list of the correspondingly indexed values in the input lists. The returned list is the length of the shorter input lists</p>
 <pre><code class="lang-javascript">zip(list123)(list246)
@@ -479,11 +493,11 @@ slice(one)(two)(list123) <span class="hljs-comment">// =&gt; list of [two]</span
         </li>
         
         
-        <li id="section-27">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-27">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <p><code>zipWith</code> takes a function and two lists and returns a list where each value is the value returned when the values in each of the given lists at the relevant index is applied to the supplied function. The returned list is the length of the shorter input lists</p>
 <pre><code class="lang-javascript">zipWith(add)(list123)(list246) <span class="hljs-comment">// =&gt; list of [3 6 9]</span>
@@ -496,11 +510,11 @@ slice(one)(two)(list123) <span class="hljs-comment">// =&gt; list of [two]</span
         </li>
         
         
-        <li id="section-28">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <h2 id="querying-lists">Querying lists</h2>
 
@@ -509,11 +523,11 @@ slice(one)(two)(list123) <span class="hljs-comment">// =&gt; list of [two]</span
         </li>
         
         
-        <li id="section-29">
+        <li id="section-30">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
               <p><code>all</code> takes a predicate and a list and returns <code>True</code> if every value applied with the predicate returns <code>True</code> and returns <code>False</code> otherwise</p>
 <pre><code class="lang-javascript">all(lt(zero))(list123) <span class="hljs-comment">// =&gt; True</span>
@@ -527,11 +541,11 @@ all(lt(three))(list123) <span class="hljs-comment">// =&gt; False</span>
         </li>
         
         
-        <li id="section-30">
+        <li id="section-31">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <p><code>last</code> returns the last value in a list</p>
 <pre><code class="lang-javascript">last(list123) <span class="hljs-comment">// =&gt; three</span>
@@ -539,16 +553,16 @@ all(lt(three))(list123) <span class="hljs-comment">// =&gt; False</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> last = foldl(K(I))(nil)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> last = foldl(a =&gt; b =&gt; b)(nil)</pre></div></div>
             
         </li>
         
         
-        <li id="section-31">
+        <li id="section-32">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <p><code>length</code> returns the length of a list</p>
 <pre><code class="lang-javascript">length(list123) <span class="hljs-comment">// =&gt; three</span>
@@ -561,11 +575,11 @@ all(lt(three))(list123) <span class="hljs-comment">// =&gt; False</span>
         </li>
         
         
-        <li id="section-32">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
               <p><code>none</code> takes a predicate and a list and returns <code>True</code> if every value applied with the predicate returns <code>False</code> and returns <code>True</code> otherwise</p>
 <pre><code class="lang-javascript">all(lt(five))(list123) <span class="hljs-comment">// =&gt; False</span>
@@ -579,11 +593,11 @@ all(lt(three))(list123) <span class="hljs-comment">// =&gt; True</span>
         </li>
         
         
-        <li id="section-33">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <p><code>nth</code> takes a numeral n and a list and returns the value at index n</p>
 <pre><code class="lang-javascript">nth(zero)(list123) <span class="hljs-comment">// =&gt; one</span>
@@ -592,16 +606,16 @@ nth(two)(list123) <span class="hljs-comment">// =&gt; three</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> nth = n =&gt; B(head)(n(tail))</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> nth = n =&gt; xs =&gt; head(n(tail)(xs))</pre></div></div>
             
         </li>
         
         
-        <li id="section-34">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p><code>sum</code> takes a list of numerals and sums it</p>
 <pre><code class="lang-javascript">sum(list123) <span class="hljs-comment">// =&gt; six</span>
@@ -614,11 +628,11 @@ nth(two)(list123) <span class="hljs-comment">// =&gt; three</span>
         </li>
         
         
-        <li id="section-35">
+        <li id="section-36">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <h2 id="transforming-lists">Transforming lists</h2>
 
@@ -627,11 +641,11 @@ nth(two)(list123) <span class="hljs-comment">// =&gt; three</span>
         </li>
         
         
-        <li id="section-36">
+        <li id="section-37">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-37">&#182;</a>
               </div>
               <p><code>filter</code> takes a predicate and a list and returns a list comprised only by those values for which the predicate returns <code>True</code></p>
 <pre><code class="lang-javascript">filter(lt(two)(list123) <span class="hljs-comment">// =&gt; list of [three]</span>
@@ -644,11 +658,11 @@ nth(two)(list123) <span class="hljs-comment">// =&gt; three</span>
         </li>
         
         
-        <li id="section-37">
+        <li id="section-38">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-38">&#182;</a>
               </div>
               <p><code>map</code> takes a function and a list and returns a new list with the function applied to every function in the given list</p>
 <pre><code class="lang-javascript">map(mult(two))(list123) <span class="hljs-comment">// =&gt; list of [two four six]</span>
@@ -661,11 +675,11 @@ nth(two)(list123) <span class="hljs-comment">// =&gt; three</span>
         </li>
         
         
-        <li id="section-38">
+        <li id="section-39">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-38">&#182;</a>
+                <a class="pilcrow" href="#section-39">&#182;</a>
               </div>
               <p><code>reverse</code> takes a list and reverses it</p>
 <pre><code class="lang-javascript">reverse(list123) <span class="hljs-comment">// =&gt; list of [three two one]</span>
@@ -673,16 +687,16 @@ nth(two)(list123) <span class="hljs-comment">// =&gt; three</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> reverse = foldl(C(cons))(nil)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> reverse = foldl(a =&gt; b =&gt; cons(b)(a))(nil)</pre></div></div>
             
         </li>
         
         
-        <li id="section-39">
+        <li id="section-40">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-39">&#182;</a>
+                <a class="pilcrow" href="#section-40">&#182;</a>
               </div>
               <p><code>reject</code> takes a predicate and a list and returns a list comprised only by those values for which the predicate returns <code>False</code></p>
 <pre><code class="lang-javascript">reject(gte(two)(list123) <span class="hljs-comment">// =&gt; list of [three]</span>

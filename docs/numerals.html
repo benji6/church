@@ -70,20 +70,6 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {B, I, I_, K, Q4, T, V} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
               <p>This is how numerals are encoded. They take a function and a value then apply that function to the value or the previous result of application n times where n is the number being encoded. In JavaScript we can decode numerals simply like this:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> decodeNumber = a =&gt; a(b =&gt; b + <span class="hljs-number">1</span>)(<span class="hljs-number">0</span>)
 decodeNumber(zero) <span class="hljs-comment">// =&gt; 0</span>
@@ -94,9 +80,35 @@ decodeNumber(three) <span class="hljs-comment">// =&gt; 3</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> zero = K(I)
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> one = I_
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>zero is the KI combinator just like False - not very type safe!</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> zero = _ =&gt; x =&gt; x</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>and one is the I* combinator</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> one = f =&gt; x =&gt; f(x)
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> two = f =&gt; x =&gt; f(f(x))
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> three = f =&gt; x =&gt; f(f(f(x)))
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> four = f =&gt; x =&gt; f(f(f(f(x))))
@@ -110,11 +122,11 @@ decodeNumber(three) <span class="hljs-comment">// =&gt; 3</span>
         </li>
         
         
-        <li id="section-3">
+        <li id="section-4">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p><code>succ</code> takes a numeral and returns its successor</p>
 <pre><code class="lang-javascript">succ(three) <span class="hljs-comment">// =&gt; four</span>
@@ -128,11 +140,11 @@ succ(four) <span class="hljs-comment">// =&gt; five</span>
         </li>
         
         
-        <li id="section-4">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <p><code>pred</code> takes a numeral and returns its predecessor. There is a catch here, if the number supplied is zero then zero will be returned</p>
 <pre><code class="lang-javascript">pred(five) <span class="hljs-comment">// =&gt; four</span>
@@ -142,16 +154,16 @@ pred(zero) <span class="hljs-comment">// =&gt; zero</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> pred = a =&gt; b =&gt; c =&gt; a(Q4(b))(K(c))(I)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> pred = a =&gt; b =&gt; c =&gt; a(d =&gt; e =&gt; e(d(b)))(_ =&gt; c)(a =&gt; a)</pre></div></div>
             
         </li>
         
         
-        <li id="section-5">
+        <li id="section-6">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               <p><code>add</code> takes two numerals and returns their sum</p>
 <pre><code class="lang-javascript">add(four)(three) <span class="hljs-comment">// =&gt; seven</span>
@@ -164,11 +176,11 @@ pred(zero) <span class="hljs-comment">// =&gt; zero</span>
         </li>
         
         
-        <li id="section-6">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <p><code>sub</code> takes two numerals and returns their difference. Again there is catch in that if the difference is negative then zero will be returned</p>
 <pre><code class="lang-javascript">sub(three)(one) <span class="hljs-comment">// =&gt; two</span>
@@ -179,24 +191,7 @@ sub(three)(four) <span class="hljs-comment">// =&gt; zero</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> sub = V(pred)</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-7">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
-              </div>
-              <p><code>mult</code> takes two numerals and returns their product</p>
-<pre><code class="lang-javascript">mult(two)(five) <span class="hljs-comment">// =&gt; ten</span>
-</code></pre>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> mult = B</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> sub = a =&gt; b =&gt; b(pred)(a)</pre></div></div>
             
         </li>
         
@@ -207,7 +202,24 @@ sub(three)(four) <span class="hljs-comment">// =&gt; zero</span>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p><code>exp</code> takes two numerals and returns the first to the power of the second</p>
+              <p><code>mult</code> takes two numerals and returns their product. This is the B combinator</p>
+<pre><code class="lang-javascript">mult(two)(five) <span class="hljs-comment">// =&gt; ten</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> mult = a =&gt; b =&gt; c =&gt; a(b(c))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p><code>exp</code> takes two numerals and returns the first to the power of the second. This is the T combinator</p>
 <pre><code class="lang-javascript">exp(ten)(zero) <span class="hljs-comment">// =&gt; one</span>
 exp(two)(two) <span class="hljs-comment">// =&gt; four</span>
 exp(three)(two) <span class="hljs-comment">// =&gt; nine</span>
@@ -215,7 +227,7 @@ exp(three)(two) <span class="hljs-comment">// =&gt; nine</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> exp = T</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> exp = a =&gt; b =&gt; b(a)</pre></div></div>
             
         </li>
         

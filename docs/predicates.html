@@ -73,8 +73,7 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {K, V} <span class="hljs-keyword">from</span> <span class="hljs-string">'combinators-js'</span>
-<span class="hljs-keyword">import</span> {and, not, True, False} <span class="hljs-keyword">from</span> <span class="hljs-string">'./booleans'</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> {and, not, True, False} <span class="hljs-keyword">from</span> <span class="hljs-string">'./booleans'</span>
 <span class="hljs-keyword">import</span> {sub} <span class="hljs-keyword">from</span> <span class="hljs-string">'./numerals'</span></pre></div></div>
             
         </li>
@@ -93,7 +92,7 @@ isZero(one) <span class="hljs-comment">// =&gt; False</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> isZero = V(K(False))(True)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> isZero = a =&gt; a(_ =&gt; False)(True)</pre></div></div>
             
         </li>
         
