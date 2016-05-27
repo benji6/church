@@ -440,41 +440,43 @@ var Y = function Y(a) {
   });
 };
 
-// `foldl` takes a reducing function, an initial value and a list. It then iterates over the list from left to right (assuming the list is ordered left to right) applying the reducing funcion to the initial value / result of previous reducing function and the current value in the list.
+// `foldr` takes a reducing function (this takes two argumens, the list element then the accumulator), an initial value and a list. It then iterates over the list from right to left applying the reducing funcion to the initial value / result of previous reducing function and the current value in the list.
 // ```javascript
-// foldl(sum)(zero)(list123) // => six
+// foldr(sum)(zero)(list123) // => six
 // ```
-var foldl = Y(function (r) {
+var foldr = Y(function (r) {
   return function (f) {
     return function (a) {
-      return function (l) {
-        return If(isNil(l))(function (_) {
+      return function (xs) {
+        return If(isNil(xs))(function (_) {
           return a;
         })(function (_) {
-          return r(f)(f(a)(head(l)))(tail(l));
+          return f(head(xs))(r(f)(a)(tail(xs)));
         })();
       };
     };
   };
 });
 
-// `foldr` behaves the same as foldl except it iterates across the list in reverse order
+// `foldl` behaves the same as `foldr` except it iterates across the list starting from the left and the reducing function takes the accumulator before the list element. The fact it can be defined in terms of `foldr` is pretty awesome
 // ```javascript
 // foldl(sum)(zero)(list123) // => six
 // ```
-var foldr = Y(function (r) {
-  return function (f) {
-    return function (a) {
-      return function (l) {
-        return If(isNil(l))(function (_) {
-          return a;
-        })(function (_) {
-          return f(r(f)(a)(tail(l)))(head(l));
-        })();
-      };
+var foldl = function foldl(f) {
+  return function (a) {
+    return function (xs) {
+      return foldr(function (x) {
+        return function (g) {
+          return function (y) {
+            return g(f(y)(x));
+          };
+        };
+      })(function (x) {
+        return x;
+      })(xs)(a);
     };
   };
-});
+};
 
 // ## Growing a list
 
@@ -484,11 +486,7 @@ var foldr = Y(function (r) {
 // ```
 var append = function append(x) {
   return function (xs) {
-    return foldr(function (a) {
-      return function (b) {
-        return cons(b)(a);
-      };
-    })(cons(x)(nil))(xs);
+    return foldr(cons)(cons(x)(nil))(xs);
   };
 };
 
@@ -544,11 +542,7 @@ var take = function take(n) {
 // ```
 var concat = function concat(xs) {
   return function (ys) {
-    return foldr(function (a) {
-      return function (b) {
-        return cons(b)(a);
-      };
-    })(ys)(xs);
+    return foldr(cons)(ys)(xs);
   };
 };
 
@@ -649,8 +643,8 @@ var sum = foldl(add)(zero);
 // filter(lt(two)(list123) // => list of [three]
 // ```
 var filter = function filter(f) {
-  return foldr(function (acc) {
-    return function (val) {
+  return foldr(function (val) {
+    return function (acc) {
       return If(f(val))(cons(val)(acc))(acc);
     };
   })(nil);
@@ -661,8 +655,8 @@ var filter = function filter(f) {
 // map(mult(two))(list123) // => list of [two four six]
 // ```
 var map = function map(f) {
-  return foldr(function (acc) {
-    return function (val) {
+  return foldr(function (val) {
+    return function (acc) {
       return cons(f(val))(acc);
     };
   })(nil);
@@ -683,8 +677,8 @@ var reverse = foldl(function (a) {
 // reject(gte(two)(list123) // => list of [three]
 // ```
 var reject = function reject(f) {
-  return foldr(function (acc) {
-    return function (val) {
+  return foldr(function (val) {
+    return function (acc) {
       return If(f(val))(acc)(cons(val)(acc));
     };
   })(nil);
@@ -730,8 +724,8 @@ exports.head = head;
 exports.tail = tail;
 exports.range = range;
 exports.repeat = repeat;
-exports.foldl = foldl;
 exports.foldr = foldr;
+exports.foldl = foldl;
 exports.append = append;
 exports.prepend = prepend;
 exports.drop = drop;
