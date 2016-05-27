@@ -304,13 +304,13 @@ repeat(True)(four) <span class="hljs-comment">// =&gt; list of [True True True T
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
-              <p><code>foldl</code> takes a reducing function, an initial value and a list. It then iterates over the list from left to right (assuming the list is ordered left to right) applying the reducing funcion to the initial value / result of previous reducing function and the current value in the list.</p>
-<pre><code class="lang-javascript">foldl(sum)(zero)(list123) <span class="hljs-comment">// =&gt; six</span>
+              <p><code>foldr</code> takes a reducing function (this takes two argumens, the list element then the accumulator), an initial value and a list. It then iterates over the list from right to left applying the reducing funcion to the initial value / result of previous reducing function and the current value in the list.</p>
+<pre><code class="lang-javascript">foldr(sum)(zero)(list123) <span class="hljs-comment">// =&gt; six</span>
 </code></pre>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foldl = Y(r =&gt; f =&gt; a =&gt; l =&gt; If(isNil(l))(_ =&gt; a)(_ =&gt; r(f)(f(a)(head(l)))(tail(l)))())</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foldr = Y(r =&gt; f =&gt; a =&gt; xs =&gt; If(isNil(xs))(_ =&gt; a)(_ =&gt; f(head(xs))(r(f)(a)(tail(xs))))())</pre></div></div>
             
         </li>
         
@@ -321,13 +321,13 @@ repeat(True)(four) <span class="hljs-comment">// =&gt; list of [True True True T
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
-              <p><code>foldr</code> behaves the same as foldl except it iterates across the list in reverse order</p>
+              <p><code>foldl</code> behaves the same as <code>foldr</code> except it iterates across the list starting from the left and the reducing function takes the accumulator before the list element. The fact it can be defined in terms of <code>foldr</code> is pretty awesome</p>
 <pre><code class="lang-javascript">foldl(sum)(zero)(list123) <span class="hljs-comment">// =&gt; six</span>
 </code></pre>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foldr = Y(r =&gt; f =&gt; a =&gt; l =&gt; If(isNil(l))(_ =&gt; a)(_ =&gt; f(r(f)(a)(tail(l)))(head(l)))())</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foldl = f =&gt; a =&gt; xs =&gt; foldr(x =&gt; g =&gt; y =&gt; g(f(y)(x)))(x =&gt; x)(xs)(a)</pre></div></div>
             
         </li>
         
@@ -357,7 +357,7 @@ repeat(True)(four) <span class="hljs-comment">// =&gt; list of [True True True T
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> append = x =&gt; xs =&gt; foldr(a =&gt; b =&gt; cons(b)(a))(cons(x)(nil))(xs)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> append = x =&gt; xs =&gt; foldr(cons)(cons(x)(nil))(xs)</pre></div></div>
             
         </li>
         
@@ -470,7 +470,7 @@ slice(one)(two)(list123) <span class="hljs-comment">// =&gt; list of [two]</span
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> concat = xs =&gt; ys =&gt; foldr(a =&gt; b =&gt; cons(b)(a))(ys)(xs)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> concat = xs =&gt; ys =&gt; foldr(cons)(ys)(xs)</pre></div></div>
             
         </li>
         
@@ -653,7 +653,7 @@ nth(two)(list123) <span class="hljs-comment">// =&gt; three</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> filter = f =&gt; foldr(acc =&gt; val =&gt; If(f(val))(cons(val)(acc))(acc))(nil)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> filter = f =&gt; foldr(val =&gt; acc =&gt; If(f(val))(cons(val)(acc))(acc))(nil)</pre></div></div>
             
         </li>
         
@@ -670,7 +670,7 @@ nth(two)(list123) <span class="hljs-comment">// =&gt; three</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> map = f =&gt; foldr(acc =&gt; val =&gt; cons(f(val))(acc))(nil)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> map = f =&gt; foldr(val =&gt; acc =&gt; cons(f(val))(acc))(nil)</pre></div></div>
             
         </li>
         
@@ -704,7 +704,7 @@ nth(two)(list123) <span class="hljs-comment">// =&gt; three</span>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> reject = f =&gt; foldr(acc =&gt; val =&gt; If(f(val))(acc)(cons(val)(acc)))(nil)</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> reject = f =&gt; foldr(val =&gt; acc =&gt; If(f(val))(acc)(cons(val)(acc)))(nil)</pre></div></div>
             
         </li>
         
