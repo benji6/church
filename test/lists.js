@@ -49,6 +49,10 @@ const push = xs => x => {
   xs.push(x)
   return xs
 }
+const pushFlipped = x => xs => {
+  xs.push(x)
+  return xs
+}
 
 test('Lists - all', t => {
   t.true(decodeBoolean(all(gt(ten))(l123)))
@@ -99,7 +103,7 @@ test('Lists - foldl', t => {
 
 test('Lists - foldr', t => {
   t.equal(decodeNumber(foldr(add)(three)(l123)), 9)
-  t.deepEqual(foldr(push)([])(l123).map(decodeNumber), [3, 2, 1])
+  t.deepEqual(foldr(pushFlipped)([])(l123).map(decodeNumber), [3, 2, 1])
   t.end()
 })
 
