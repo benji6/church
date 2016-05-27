@@ -53,7 +53,7 @@
     "docco": "^0.7.0",
     "nodemon": "^1.8.1",
     "rollup": "^0.26.3",
-    "standard": "^7.1.0",
+    "standard": "^7.1.1",
     "tape": "^4.4.0"
   },
   "standard": {
