@@ -1,13 +1,25 @@
 const Benchmark = require('benchmark')
-const church = require('./dist')
+const {
+  add,
+  filter,
+  five,
+  gt,
+  lt,
+  map,
+  mult,
+  range,
+  ten,
+  three,
+  zero
+} = require('./dist')
 
 const churchBenchmark = _ => {
-  const data = church.range(church.zero)(church.mult(church.ten)(church.ten))
-  const add10 = church.add(church.ten)
-  const triple = church.mult(church.three)
-  const greaterThan50 = x => church.gt(x)(church.mult(church.five)(church.ten))
-  const lessThan100 = x => church.lt(x)(church.mult(church.ten)(church.ten))
-  return church.filter(lessThan100)(church.filter(greaterThan50)(church.map(triple)(church.map(add10)(data))))
+  const data = range(zero)(mult(ten)(ten))
+  const add10 = add(ten)
+  const triple = mult(three)
+  const greaterThan50 = x => gt(x)(mult(five)(ten))
+  const lessThan100 = x => lt(x)(mult(ten)(ten))
+  return filter(lessThan100)(filter(greaterThan50)(map(triple)(map(add10)(data))))
 }
 
 const nativeBenchmark = _ => {

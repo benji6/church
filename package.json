@@ -1,15 +1,16 @@
 {
   "name": "church",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "Church encoding utility library for JavaScript",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
   "scripts": {
-    "benchmark": "node benchmark",
+    "bench": "node benchmark",
     "build": "rm -rf dist && mkdir dist && rollup src/index.js | babel --presets es2015 -o dist/index.js",
     "docs": "docco src/*.js",
     "prepublish": "npm run test && npm run build && npm run docs",
-    "test": "standard && babel-node node_modules/.bin/tape 'test/**/*'",
+    "spec": "babel-node node_modules/.bin/tape 'test/**/*'",
+    "test": "standard && npm run spec",
     "watch-docs": "nodemon --exec npm run docs",
     "watch-test": "nodemon --exec npm test"
   },
@@ -53,7 +54,7 @@
     "docco": "^0.7.0",
     "nodemon": "^1.8.1",
     "rollup": "^0.26.3",
-    "standard": "^7.1.0",
+    "standard": "^7.1.1",
     "tape": "^4.4.0"
   },
   "standard": {

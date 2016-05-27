@@ -64,17 +64,17 @@ export const repeat = a => b => b(c => cons(a)(c))(nil)
 // This is the Y combinator which we use to recursively call lambda exressions in our definitions below
 const Y = a => (b => b(b))(b => a(c => b(b)(c)))
 
-// `foldl` takes a reducing function, an initial value and a list. It then iterates over the list from left to right (assuming the list is ordered left to right) applying the reducing funcion to the initial value / result of previous reducing function and the current value in the list.
+// `foldr` takes a reducing function (this takes two argumens, the list element then the accumulator), an initial value and a list. It then iterates over the list from right to left applying the reducing funcion to the initial value / result of previous reducing function and the current value in the list.
 // ```javascript
-// foldl(sum)(zero)(list123) // => six
+// foldr(sum)(zero)(list123) // => six
 // ```
-export const foldl = Y(r => f => a => l => If(isNil(l))(_ => a)(_ => r(f)(f(a)(head(l)))(tail(l)))())
+export const foldr = Y(r => f => a => xs => If(isNil(xs))(_ => a)(_ => f(head(xs))(r(f)(a)(tail(xs))))())
 
-// `foldr` behaves the same as foldl except it iterates across the list in reverse order
+// `foldl` behaves the same as `foldr` except it iterates across the list starting from the left and the reducing function takes the accumulator before the list element. The fact it can be defined in terms of `foldr` is pretty awesome
 // ```javascript
 // foldl(sum)(zero)(list123) // => six
 // ```
-export const foldr = Y(r => f => a => l => If(isNil(l))(_ => a)(_ => f(r(f)(a)(tail(l)))(head(l)))())
+export const foldl = f => a => xs => foldr(x => g => y => g(f(y)(x)))(x => x)(xs)(a)
 
 // ## Growing a list
 
@@ -82,7 +82,7 @@ export const foldr = Y(r => f => a => l => If(isNil(l))(_ => a)(_ => f(r(f)(a)(t
 // ```javascript
 // append(four)(list123) // => list of [one two three four]
 // ```
-export const append = x => xs => foldr(a => b => cons(b)(a))(cons(x)(nil))(xs)
+export const append = x => xs => foldr(cons)(cons(x)(nil))(xs)
 
 // `prepend` takes a value and a list then returns a list with the value prepended
 // ```javascript
@@ -118,7 +118,7 @@ export const take = n => foldl(acc => val => If(lt(length(acc))(n))(append(val)(
 // concat(list123)(list123)
 // // => list of [one two three one two three]
 // ```
-export const concat = xs => ys => foldr(a => b => cons(b)(a))(ys)(xs)
+export const concat = xs => ys => foldr(cons)(ys)(xs)
 
 // `zip` takes two lists and returns a list where each value is a list of the correspondingly indexed values in the input lists. The returned list is the length of the shorter input lists
 // ```javascript
@@ -180,13 +180,13 @@ export const sum = foldl(add)(zero)
 // ```javascript
 // filter(lt(two)(list123) // => list of [three]
 // ```
-export const filter = f => foldr(acc => val => If(f(val))(cons(val)(acc))(acc))(nil)
+export const filter = f => foldr(val => acc => If(f(val))(cons(val)(acc))(acc))(nil)
 
 // `map` takes a function and a list and returns a new list with the function applied to every function in the given list
 // ```javascript
 // map(mult(two))(list123) // => list of [two four six]
 // ```
-export const map = f => foldr(acc => val => cons(f(val))(acc))(nil)
+export const map = f => foldr(val => acc => cons(f(val))(acc))(nil)
 
 // `reverse` takes a list and reverses it
 // ```javascript
@@ -198,4 +198,4 @@ export const reverse = foldl(a => b => cons(b)(a))(nil)
 // ```javascript
 // reject(gte(two)(list123) // => list of [three]
 // ```
-export const reject = f => foldr(acc => val => If(f(val))(acc)(cons(val)(acc)))(nil)
+export const reject = f => foldr(val => acc => If(f(val))(acc)(cons(val)(acc)))(nil)
