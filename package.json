@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
   "scripts": {
-    "benchmark": "node benchmark",
+    "bench": "node benchmark",
     "build": "rm -rf dist && mkdir dist && rollup src/index.js | babel --presets es2015 -o dist/index.js",
     "docs": "docco src/*.js",
     "prepublish": "npm run test && npm run build && npm run docs",
