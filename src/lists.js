@@ -68,13 +68,13 @@ const Y = a => (b => b(b))(b => a(c => b(b)(c)))
 // ```javascript
 // foldr(sum)(zero)(list123) // => six
 // ```
-export const foldr = Y(r => f => a => l => If(isNil(l))(_ => a)(_ => f(head(l))(r(f)(a)(tail(l))))())
+export const foldr = Y(r => f => a => xs => If(isNil(xs))(_ => a)(_ => f(head(xs))(r(f)(a)(tail(xs))))())
 
-// `foldl` behaves the same as `foldr` except it iterates across the list starting from the left and the reducing function takes the accumulator before the list element
+// `foldl` behaves the same as `foldr` except it iterates across the list starting from the left and the reducing function takes the accumulator before the list element. The fact it can be defined in terms of `foldr` is pretty awesome
 // ```javascript
 // foldl(sum)(zero)(list123) // => six
 // ```
-export const foldl = Y(r => f => a => l => If(isNil(l))(_ => a)(_ => r(f)(f(a)(head(l)))(tail(l)))())
+export const foldl = f => a => xs => foldr(x => g => y => g(f(y)(x)))(x => x)(xs)(a)
 
 // ## Growing a list
 
