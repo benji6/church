@@ -10,7 +10,7 @@
     "docs": "docco src/*.js",
     "prepublish": "npm run test && npm run build && npm run docs",
     "spec": "babel-node node_modules/.bin/tape 'test/**/*'",
-    "test": "standard && npm run spec",
+    "test": "eslint src test && npm run spec",
     "watch-docs": "nodemon --exec npm run docs",
     "watch-test": "nodemon --exec npm test"
   },
@@ -48,19 +48,13 @@
   "devDependencies": {
     "babel": "^6.3.26",
     "babel-cli": "^6.4.5",
-    "babel-eslint": "^6.0.4",
     "babel-preset-es2015": "^6.3.13",
     "benchmark": "^2.0.0",
     "docco": "^0.7.0",
+    "eslint": "^3.19.0",
+    "eslint-config-benji6": "^1.2.0",
     "nodemon": "^1.8.1",
     "rollup": "^0.26.3",
-    "standard": "^7.1.1",
     "tape": "^4.4.0"
-  },
-  "standard": {
-    "parser": "babel-eslint",
-    "ignore": [
-      "dist"
-    ]
   }
 }

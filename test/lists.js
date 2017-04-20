@@ -39,7 +39,7 @@ import {
   two,
   zero,
   zip,
-  zipWith
+  zipWith,
 } from '../src'
 
 const l123 = cons(one)(cons(two)(cons(three)(nil)))
@@ -213,7 +213,7 @@ test('Lists - zip', t => {
     [
       [1, 2],
       [2, 4],
-      [3, 6]
+      [3, 6],
     ]
   )
   t.deepEqual(
@@ -221,7 +221,7 @@ test('Lists - zip', t => {
     [
       [1, 2],
       [2, 4],
-      [3, 6]
+      [3, 6],
     ]
   )
   t.end()

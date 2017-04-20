@@ -7,7 +7,7 @@ import {
   or,
   xor,
   If,
-  not
+  not,
 } from '../src'
 
 test('Booleans - true and false values', t => {

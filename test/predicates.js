@@ -11,7 +11,7 @@ import {
   one,
   two,
   three,
-  four
+  four,
 } from '../src'
 
 test('Predicates - isZero', t => {

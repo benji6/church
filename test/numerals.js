@@ -17,7 +17,7 @@ import {
   add,
   sub,
   mult,
-  exp
+  exp,
 } from '../src'
 
 test('Numerals - values', t => {

@@ -1,0 +1,7 @@
+{
+  "extends": "benji6",
+  "rules": {
+    "no-unused-vars": 0,
+    "no-use-before-define": 0
+  }
+}
