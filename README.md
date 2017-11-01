@@ -32,10 +32,6 @@ map(x => If(lt(x)(five))(five)(x))(twoFourSix)
 
 The code is written in ES2015 and transpiled to ES5. You can consume the ES2015 source directly using [Rollup](https://github.com/rollup/rollup).
 
-### Contributing
-
-Please do! I am no mathematician or computer scientist, so I am sure there are loads of improvements that could be made here.
-
 ### Resources
 
 - [combinators-js](https://github.com/benji6/combinators-js) - a library of combinators in JS I wrote
