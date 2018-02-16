@@ -1,10 +1,10 @@
 // This is how numerals are encoded. They take a function and a value then apply that function to the value or the previous result of application n times where n is the number being encoded. In JavaScript we can decode numerals simply like this:
 // ```javascript
-// const decodeNumber = a => a(b => b + 1)(0)
-// decodeNumber(zero) // => 0
-// decodeNumber(one) // => 1
-// decodeNumber(two) // => 2
-// decodeNumber(three) // => 3
+// const decodeNumeral = a => a(b => b + 1)(0)
+// decodeNumeral(zero) // => 0
+// decodeNumeral(one) // => 1
+// decodeNumeral(two) // => 2
+// decodeNumeral(three) // => 3
 // ```
 
 // zero is the KI combinator just like False - not very type safe!
@@ -64,3 +64,15 @@ export const mult = a => b => c => a(b(c))
 // exp(three)(two) // => nine
 // ```
 export const exp = a => b => b(a)
+
+// `decodeNumeral` takes a Church encoded numeral and returns the corresponding JS number
+// ```javascript
+// decodeNumeral(three) // => 3
+// ```
+export const decodeNumeral = a => a(b => b + 1)(0)
+
+// `encodeNumeral` takes a JS number and returns the corresponding Church encoded numeral
+// ```javascript
+// encodeNumeral(3) // => three
+// ```
+export const encodeNumeral = n => f => x => Array.apply(null, {length: n}).reduce(f, x)
