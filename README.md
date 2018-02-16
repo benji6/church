@@ -30,8 +30,6 @@ map(x => If(lt(x)(five))(five)(x))(twoFourSix)
 // => church encoded list of [five five six]
 ```
 
-The code is written in ES2015 and transpiled to ES5. You can consume the ES2015 source directly using [Rollup](https://github.com/rollup/rollup).
-
 ### Resources
 
 - [combinators-js](https://github.com/benji6/combinators-js) - a library of combinators in JS I wrote
