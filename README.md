@@ -5,15 +5,15 @@
 
 Church encoding utility library for JavaScript
 
-### Why?
+## Why?
 
 I built this library mostly as a learning exercise, but the code is also available as an npm module that can be consumed and used to build JavaScript applications using basically nothing but functions. I'm not sure why you would want to do that though!
 
-### What?
+## What?
 
 Church encoding is a way of encoding data using only functions. For instance, we can use functions to represent, booleans, numerals and lists. Higher-order functions are all you need for Turing completeness.
 
-### How?
+## How?
 
 Check out the [docs](http://benji6.github.io/church/docs/).
 
@@ -21,10 +21,33 @@ Check out the [docs](http://benji6.github.io/church/docs/).
 
 `npm i church`
 
+### Examples
+
 ```javascript
-import {five, If, lt, map, mult, one, range, three, two} from 'church'
+import {
+  decodeList,
+  decodeNumeral,
+  encodeList,
+  encodeNumeral,
+  five,
+  If,
+  lt,
+  map,
+  mult,
+  one,
+  range,
+  three,
+  two,
+} from 'church'
+
 const twoFourSix = map(mult(two))(range(one)(three))
 // => church encoded list of [two four six]
+
+const twoFourSixJs = decodeList(twoFourSix).map(decodeNumeral)
+// => [2, 4, 6] (standard JS array of standard JS numbers)
+
+encodeList(twoFourSixJs.map(encodeNumeral))
+// => church encoded list of [two four six] again
 
 map(x => If(lt(x)(five))(five)(x))(twoFourSix)
 // => church encoded list of [five five six]
