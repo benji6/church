@@ -41,16 +41,16 @@ import {
 } from 'church'
 
 const twoFourSix = map(mult(two))(range(one)(three))
-// => church encoded list of [two four six]
+// => Church encoded list of [two four six]
 
 const twoFourSixJs = decodeList(twoFourSix).map(decodeNumeral)
 // => [2, 4, 6] (standard JS array of standard JS numbers)
 
 encodeList(twoFourSixJs.map(encodeNumeral))
-// => church encoded list of [two four six] again
+// => Church encoded list of [two four six] again
 
 map(x => If(lt(x)(five))(five)(x))(twoFourSix)
-// => church encoded list of [five five six]
+// => Church encoded list of [five five six]
 ```
 
 ### Resources
