@@ -199,3 +199,17 @@ export const reverse = foldl(a => b => cons(b)(a))(nil)
 // reject(gte(two)(list123) // => list of [three]
 // ```
 export const reject = f => foldr(val => acc => If(f(val))(acc)(cons(val)(acc)))(nil)
+
+// ## Encoding & Decoding
+
+// `encodeList` takes a JS array and returns a corresponding Church encoded list
+// ```javascript
+// encodeList([1, 2, 3]) // => list of [1 2 3]
+// ```
+export const encodeList = xs => xs.reduceRight((ys, x) => prepend(x)(ys), nil)
+
+// `decodeList` takes a Church encoded list and returns a corresponding JS array (notw that this will not decode any Church encoded values in the list)
+// ```javascript
+// decodeList(list123) // => [One, Two, Three]
+// ```
+export const decodeList = foldl(xs => x => xs.concat([x]))([])

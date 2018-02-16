@@ -1,5 +1,4 @@
 import test from 'tape'
-import {decodeList} from './_tools'
 import {
   add,
   all,
@@ -7,8 +6,10 @@ import {
   concat,
   cons,
   decodeBoolean,
+  decodeList,
   decodeNumeral,
   drop,
+  encodeList,
   filter,
   foldl,
   foldr,
@@ -233,6 +234,22 @@ test('Lists - zipWith', t => {
   t.deepEqual(
     decodeList(zipWith(add)(l123)(l246)).map(decodeNumeral),
     [3, 6, 9]
+  )
+  t.end()
+})
+
+test('Lists - encode', t => {
+  t.deepEqual(
+    decodeList(encodeList([])),
+    []
+  )
+  t.deepEqual(
+    decodeList(encodeList([1])),
+    [1]
+  )
+  t.deepEqual(
+    decodeList(encodeList([1, 2, 3])),
+    [1, 2, 3]
   )
   t.end()
 })

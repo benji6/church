@@ -725,6 +725,28 @@ var reject = function reject(f) {
   })(nil);
 };
 
+// ## Encoding & Decoding
+
+// `encodeList` takes a JS array and returns a corresponding Church encoded list
+// ```javascript
+// encodeList([1, 2, 3]) // => list of [1 2 3]
+// ```
+var encodeList = function encodeList(xs) {
+  return xs.reduceRight(function (ys, x) {
+    return prepend(x)(ys);
+  }, nil);
+};
+
+// `decodeList` takes a Church encoded list and returns a corresponding JS array (notw that this will not decode any Church encoded values in the list)
+// ```javascript
+// decodeList(list123) // => [One, Two, Three]
+// ```
+var decodeList = foldl(function (xs) {
+  return function (x) {
+    return xs.concat([x]);
+  };
+})([]);
+
 exports.True = True;
 exports.False = False;
 exports.If = If;
@@ -789,3 +811,5 @@ exports.filter = filter;
 exports.map = map;
 exports.reverse = reverse;
 exports.reject = reject;
+exports.encodeList = encodeList;
+exports.decodeList = decodeList;
