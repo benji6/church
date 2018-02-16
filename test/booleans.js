@@ -1,5 +1,4 @@
 import test from 'tape'
-import {decodeBoolean} from './_tools'
 import {
   True,
   False,
@@ -8,6 +7,8 @@ import {
   xor,
   If,
   not,
+  decodeBoolean,
+  encodeBoolean,
 } from '../src'
 
 test('Booleans - true and false values', t => {
@@ -49,5 +50,13 @@ test('Booleans - not', t => {
 test('Booleans - If', t => {
   t.true(If(True)(true)(false))
   t.false(If(False)(true)(false))
+  t.end()
+})
+
+test('Booleans - encodeBoolean', t => {
+  t.true(decodeBoolean(encodeBoolean(true)))
+  t.true(decodeBoolean(encodeBoolean(1)))
+  t.false(decodeBoolean(encodeBoolean(false)))
+  t.false(decodeBoolean(encodeBoolean(0)))
   t.end()
 })

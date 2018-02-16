@@ -1,6 +1,6 @@
 import test from 'tape'
-import {decodeBoolean} from './_tools'
 import {
+  decodeBoolean,
   isZero,
   lte,
   gte,

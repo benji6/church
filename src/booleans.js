@@ -20,30 +20,45 @@ export const False = _ => a => a
 // ```
 export const If = a => b => c => a(b)(c)
 
-// Standard 'and'
+// `and`
 // ```javascript
 // and(True)(True) // => True
 // and(True)(False) // => False
 // ```
 export const and = a => b => a(b)(a)
 
-// Standard 'or'
+// `or`
 // ```javascript
 // or(True)(False) // => True
 // or(False)(False) // => False
 // ```
 export const or = a => b => a(a)(b)
 
-// Standard 'not'. This is the C combinator
+// `not` (this is the C combinator)
 // ```javascript
 // not(False) // => True
 // not(True) // => False
 // ```
 export const not = a => b => c => a(c)(b)
 
-// Standard 'xor'
+// `xor`
 // ```javascript
 // xor(True)(False) // => True
 // xor(True)(True) // => False
 // ```
 export const xor = a => b => c => d => a(b(d)(c))(b(c)(d))
+
+// `decodeBoolean` takes a Church encoded boolean and returns the corresponding JS boolean
+// ```javascript
+// decodeBoolean(True) // => true
+// decodeBoolean(False) // => false
+// ```
+export const decodeBoolean = a => a(true)(false)
+
+// `encodeBoolean` takes a JS value and returns `True` if it is truthy
+// and `False` otherwise
+// ```javascript
+// encodeBoolean(true) // => True
+// encodeBoolean(false) // => False
+// ```
+export const encodeBoolean = a => a ? True : False

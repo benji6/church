@@ -39,7 +39,7 @@ var If = function If(a) {
   };
 };
 
-// Standard 'and'
+// `and`
 // ```javascript
 // and(True)(True) // => True
 // and(True)(False) // => False
@@ -50,7 +50,7 @@ var and = function and(a) {
   };
 };
 
-// Standard 'or'
+// `or`
 // ```javascript
 // or(True)(False) // => True
 // or(False)(False) // => False
@@ -61,7 +61,7 @@ var or = function or(a) {
   };
 };
 
-// Standard 'not'. This is the C combinator
+// `not` (this is the C combinator)
 // ```javascript
 // not(False) // => True
 // not(True) // => False
@@ -74,7 +74,7 @@ var not = function not(a) {
   };
 };
 
-// Standard 'xor'
+// `xor`
 // ```javascript
 // xor(True)(False) // => True
 // xor(True)(True) // => False
@@ -87,6 +87,25 @@ var xor = function xor(a) {
       };
     };
   };
+};
+
+// `decodeBoolean` takes a Church encoded boolean and returns the corresponding JS boolean
+// ```javascript
+// decodeBoolean(True) // => true
+// decodeBoolean(False) // => false
+// ```
+var decodeBoolean = function decodeBoolean(a) {
+  return a(true)(false);
+};
+
+// `encodeBoolean` takes a JS value and returns `True` if it is truthy
+// and `False` otherwise
+// ```javascript
+// encodeBoolean(true) // => True
+// encodeBoolean(false) // => False
+// ```
+var encodeBoolean = function encodeBoolean(a) {
+  return a ? True : False;
 };
 
 // This is how numerals are encoded. They take a function and a value then apply that function to the value or the previous result of application n times where n is the number being encoded. In JavaScript we can decode numerals simply like this:
@@ -691,6 +710,8 @@ exports.and = and;
 exports.or = or;
 exports.not = not;
 exports.xor = xor;
+exports.decodeBoolean = decodeBoolean;
+exports.encodeBoolean = encodeBoolean;
 exports.zero = zero;
 exports.one = one;
 exports.two = two;

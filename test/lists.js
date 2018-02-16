@@ -1,11 +1,12 @@
 import test from 'tape'
-import {decodeBoolean, decodeList, decodeNumber} from './_tools'
+import {decodeList, decodeNumber} from './_tools'
 import {
   add,
   all,
   append,
   concat,
   cons,
+  decodeBoolean,
   drop,
   filter,
   foldl,
