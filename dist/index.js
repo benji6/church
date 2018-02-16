@@ -5,6 +5,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 // Check out my [combinators-js](https://github.com/benji6/combinators-js) library if you are interested in combinatory logic.
 // A [combinator](https://en.wikipedia.org/wiki/Combinatory_logic) is just a higher order function that uses only function application and earlier defined combinators to define a result from its arguments. Most of the functions declared here can be defined very simply in terms of combinators.
 
+// ## General
+
 // `True` takes 2 arguments and returns the first. This is the K combinator
 // ```javascript
 // True('first')('second') // => 'first'`
@@ -88,14 +90,7 @@ var xor = function xor(a) {
   };
 };
 
-// `decodeBoolean` takes a Church encoded boolean and returns the corresponding JS boolean
-// ```javascript
-// decodeBoolean(True) // => true
-// decodeBoolean(False) // => false
-// ```
-var decodeBoolean = function decodeBoolean(a) {
-  return a(true)(false);
-};
+// ## Encoding & decoding
 
 // `encodeBoolean` takes a JS value and returns `True` if it is truthy
 // and `False` otherwise
@@ -107,14 +102,18 @@ var encodeBoolean = function encodeBoolean(a) {
   return a ? True : False;
 };
 
-// This is how numerals are encoded. They take a function and a value then apply that function to the value or the previous result of application n times where n is the number being encoded. In JavaScript we can decode numerals simply like this:
+// `decodeBoolean` takes a Church encoded boolean and returns the corresponding JS boolean
 // ```javascript
-// const decodeNumeral = a => a(b => b + 1)(0)
-// decodeNumeral(zero) // => 0
-// decodeNumeral(one) // => 1
-// decodeNumeral(two) // => 2
-// decodeNumeral(three) // => 3
+// decodeBoolean(True) // => true
+// decodeBoolean(False) // => false
 // ```
+var decodeBoolean = function decodeBoolean(a) {
+  return a(true)(false);
+};
+
+// This is how numerals are encoded. They take a function and a value then apply that function to the value or the previous result of application n times where n is the number being encoded.
+
+// ## General
 
 // zero is the KI combinator just like False - not very type safe!
 var zero = function zero(_) {
@@ -260,15 +259,7 @@ var exp = function exp(a) {
   };
 };
 
-// `decodeNumeral` takes a Church encoded numeral and returns the corresponding JS number
-// ```javascript
-// decodeNumeral(three) // => 3
-// ```
-var decodeNumeral = function decodeNumeral(a) {
-  return a(function (b) {
-    return b + 1;
-  })(0);
-};
+// ## Encoding & Decoding
 
 // `encodeNumeral` takes a JS number and returns the corresponding Church encoded numeral
 // ```javascript
@@ -280,6 +271,16 @@ var encodeNumeral = function encodeNumeral(n) {
       return Array.apply(null, { length: n }).reduce(f, x);
     };
   };
+};
+
+// `decodeNumeral` takes a Church encoded numeral and returns the corresponding JS number
+// ```javascript
+// decodeNumeral(three) // => 3
+// ```
+var decodeNumeral = function decodeNumeral(a) {
+  return a(function (b) {
+    return b + 1;
+  })(0);
 };
 
 // `isZero` takes a value and returns Church encoded `True` if it is a Church encoded `zero` and `False` otherwise
@@ -731,8 +732,8 @@ exports.and = and;
 exports.or = or;
 exports.not = not;
 exports.xor = xor;
-exports.decodeBoolean = decodeBoolean;
 exports.encodeBoolean = encodeBoolean;
+exports.decodeBoolean = decodeBoolean;
 exports.zero = zero;
 exports.one = one;
 exports.two = two;
@@ -750,8 +751,8 @@ exports.add = add;
 exports.sub = sub;
 exports.mult = mult;
 exports.exp = exp;
-exports.decodeNumeral = decodeNumeral;
 exports.encodeNumeral = encodeNumeral;
+exports.decodeNumeral = decodeNumeral;
 exports.isZero = isZero;
 exports.lte = lte;
 exports.gte = gte;
