@@ -1,8 +1,7 @@
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+Object.defineProperty(exports, '__esModule', { value: true });
+
 // Check out my [combinators-js](https://github.com/benji6/combinators-js) library if you are interested in combinatory logic.
 // A [combinator](https://en.wikipedia.org/wiki/Combinatory_logic) is just a higher order function that uses only function application and earlier defined combinators to define a result from its arguments. Most of the functions declared here can be defined very simply in terms of combinators.
 
@@ -702,6 +701,8 @@ var reject = function reject(f) {
     };
   })(nil);
 };
+
+// Welcome to the docs!
 
 exports.True = True;
 exports.False = False;

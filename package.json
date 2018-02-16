@@ -6,7 +6,7 @@
   "jsnext:main": "src/index.js",
   "scripts": {
     "benchmark": "node benchmark",
-    "build": "rm -rf dist && mkdir dist && rollup src/index.js | babel --presets es2015 -o dist/index.js",
+    "build": "rm -rf dist && mkdir dist && rollup src/index.js -f cjs | babel --presets es2015 -o dist/index.js",
     "docs": "docco src/*.js",
     "docs:watch": "nodemon --exec npm run docs",
     "prepublish": "npm run test && npm run build && npm run docs",
@@ -54,7 +54,7 @@
     "eslint": "^3.19.0",
     "eslint-config-benji6": "^1.2.0",
     "nodemon": "^1.8.1",
-    "rollup": "^0.26.3",
+    "rollup": "^0.56.1",
     "tape": "^4.4.0"
   }
 }
