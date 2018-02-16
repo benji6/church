@@ -5,14 +5,14 @@
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
   "scripts": {
-    "bench": "node benchmark",
+    "benchmark": "node benchmark",
     "build": "rm -rf dist && mkdir dist && rollup src/index.js | babel --presets es2015 -o dist/index.js",
     "docs": "docco src/*.js",
+    "docs:watch": "nodemon --exec npm run docs",
     "prepublish": "npm run test && npm run build && npm run docs",
     "spec": "babel-node node_modules/.bin/tape 'test/**/*'",
     "test": "eslint src test && npm run spec",
-    "watch-docs": "nodemon --exec npm run docs",
-    "watch-test": "nodemon --exec npm test"
+    "test:watch": "nodemon --exec npm test"
   },
   "repository": {
     "type": "git",
