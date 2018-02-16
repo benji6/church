@@ -1,6 +1,11 @@
 # Changelog
 
+## 2.1.x
+
+Added `decodeBoolean`, `encodeBoolean`, `decodeList`, `encodeList`, `decodeNumeral` and `encodeNumeral`
+
 ## 2.0.x
+
 Parameter order in `foldr` reducing function has flipped to list element followed by accumulator to match haskell
 
 `foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b`
