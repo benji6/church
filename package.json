@@ -8,13 +8,13 @@
     "benchmark": "node benchmark",
     "build": "rm -rf dist && mkdir dist && rollup src/index.js -f cjs | babel --presets es2015 -o dist/index.js",
     "docs": "docco src/*.js",
-    "docs:watch": "nodemon --exec npm run docs",
+    "docs:watch": "nodemon --exec yarn docs",
     "format": "yarn test:lint --fix",
-    "prepublish": "npm run test && npm run build && npm run docs",
+    "prepublish": "yarn test && yarn build && yarn docs",
     "spec": "babel-node node_modules/.bin/tape 'test/**/*'",
-    "test": "yarn test:lint && npm run spec",
+    "test": "yarn test:lint && yarn spec",
     "test:lint": "eslint src test",
-    "test:watch": "nodemon --exec npm test"
+    "test:watch": "nodemon --exec yarn test"
   },
   "repository": {
     "type": "git",

@@ -19,7 +19,7 @@ Check out the [docs](http://benji6.github.io/church/docs/).
 
 ### Install
 
-`npm i church`
+`npm i church` or `yarn add church`.
 
 ### Examples
 
