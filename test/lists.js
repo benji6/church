@@ -217,7 +217,7 @@ test('Lists - zip', t => {
       [1, 2],
       [2, 4],
       [3, 6],
-    ]
+    ],
   )
   t.deepEqual(
     decodeList(zip(l1234)(l246)).map(decodeList).map(xs => xs.map(decodeNumeral)),
@@ -225,7 +225,7 @@ test('Lists - zip', t => {
       [1, 2],
       [2, 4],
       [3, 6],
-    ]
+    ],
   )
   t.end()
 })
@@ -233,7 +233,7 @@ test('Lists - zip', t => {
 test('Lists - zipWith', t => {
   t.deepEqual(
     decodeList(zipWith(add)(l123)(l246)).map(decodeNumeral),
-    [3, 6, 9]
+    [3, 6, 9],
   )
   t.end()
 })
@@ -241,15 +241,15 @@ test('Lists - zipWith', t => {
 test('Lists - encode', t => {
   t.deepEqual(
     decodeList(encodeList([])),
-    []
+    [],
   )
   t.deepEqual(
     decodeList(encodeList([1])),
-    [1]
+    [1],
   )
   t.deepEqual(
     decodeList(encodeList([1, 2, 3])),
-    [1, 2, 3]
+    [1, 2, 3],
   )
   t.end()
 })

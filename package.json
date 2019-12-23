@@ -9,9 +9,11 @@
     "build": "rm -rf dist && mkdir dist && rollup src/index.js -f cjs | babel --presets es2015 -o dist/index.js",
     "docs": "docco src/*.js",
     "docs:watch": "nodemon --exec npm run docs",
+    "format": "yarn test:lint --fix",
     "prepublish": "npm run test && npm run build && npm run docs",
     "spec": "babel-node node_modules/.bin/tape 'test/**/*'",
-    "test": "eslint src test && npm run spec",
+    "test": "yarn test:lint && npm run spec",
+    "test:lint": "eslint src test",
     "test:watch": "nodemon --exec npm test"
   },
   "repository": {
