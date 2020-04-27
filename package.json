@@ -57,6 +57,6 @@
     "eslint-config-benji6": "^1.2.0",
     "nodemon": "^2.0.0",
     "rollup": "^2.0.2",
-    "tape": "^4.4.0"
+    "tape": "^5.0.0"
   }
 }
