@@ -9,11 +9,8 @@
     "build": "rm -rf dist && mkdir dist && rollup src/index.js -f cjs | babel --presets es2015 -o dist/index.js",
     "docs": "docco src/*.js",
     "docs:watch": "nodemon --exec yarn docs",
-    "format": "yarn test:lint --fix",
     "prepublish": "yarn test && yarn build && yarn docs",
-    "spec": "babel-node node_modules/.bin/tape 'test/**/*'",
-    "test": "yarn test:lint && yarn spec",
-    "test:lint": "eslint src test",
+    "test": "babel-node node_modules/.bin/tape 'test/**/*'",
     "test:watch": "nodemon --exec yarn test"
   },
   "repository": {
@@ -53,8 +50,6 @@
     "babel-preset-es2015": "^6.3.13",
     "benchmark": "^2.0.0",
     "docco": "^0.8.0",
-    "eslint": "^7.0.0",
-    "eslint-config-benji6": "^1.2.0",
     "nodemon": "^2.0.0",
     "rollup": "^2.0.2",
     "tape": "^5.0.0"
