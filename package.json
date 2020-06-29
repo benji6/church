@@ -3,7 +3,7 @@
   "version": "2.1.0",
   "description": "Church encoding utility library for JavaScript",
   "main": "dist/index.js",
-  "jsnext:main": "src/index.js",
+  "module": "src",
   "scripts": {
     "benchmark": "node benchmark",
     "build": "rm -rf dist && mkdir dist && rollup src/index.js -f cjs | babel --presets es2015 -o dist/index.js",
