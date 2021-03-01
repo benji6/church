@@ -819,9 +819,9 @@ detect-indent@^4.0.0:
     repeating "^2.0.0"
 
 docco@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/docco/-/docco-0.8.0.tgz#ec71470fe52808f4dbba4fab71380dcdfe9f5396"
-  integrity sha512-QcWBDnnGaT+rgC0wqynznXv0/4hd6nAFdWNs2fN4FvkH2yAnCYVeRU7GIZXNCeUQ955Lufq+TmZcSXiBa1cGQQ==
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/docco/-/docco-0.8.1.tgz#7a9352564d2d3ed69fc0a04d3f700bf2a88002bb"
+  integrity sha512-OFVdjpxw4aTI+FThrCY2NEWZV/nvGDFlfeQxUTMkKL+oY2gD2sMl0N5ogoAj3YLZU05UDBSh64ROYzLFzxSoSQ==
   dependencies:
     commander ">= 0.5.2"
     fs-extra ">= 0.6.0"
