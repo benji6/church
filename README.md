@@ -1,7 +1,7 @@
 # church
 
 [![npm version](https://badge.fury.io/js/church.svg)](https://badge.fury.io/js/church)
-[![Build Status](https://travis-ci.org/benji6/church.svg?branch=master)](https://travis-ci.org/benji6/church)
+![CI](https://github.com/benji6/church/workflows/CI/badge.svg)
 
 Church encoding utility library for JavaScript
 
